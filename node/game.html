@@ -1,0 +1,94 @@
+<html>
+    <head>
+    <script type= "text/javascript">
+    var ipAdd = 0
+    //console = {}
+    //console["log"] = function(){}
+    
+    </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type = "text/javascript" src="json2.js"></script>
+        <script type = "text/javascript" src="gameCreation.js"></script>
+        <script type= "text/javascript">
+        
+            $(document).ready(function(){
+                setUp()
+                displayGame(gameIndex)
+                $("#skip").hide()
+                $.get('http://jsonip.com', function (res) {
+                    $('p').html('IP Address is: ' + res.ip);
+                    ipAdd = res.ip
+                    console.log(ipAdd)
+                    var d = new Date();
+                    var n = d.getTime();
+                    var message = {
+                        id: ipAdd, 
+                        time: n
+                    }
+                    ajax(message, function(result){ })
+                });  
+            })
+        </script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id="main">
+            <div id="banner">
+                <font color = "white">
+                4 Pics 1 Word
+                </font>
+            </div>
+            <div id="nav"style="font-weight: bold; font size=7;">
+            </div>
+            <div id="content">
+                <div id="content1" class="contentblock">
+                    <center>
+                        <table border="10"> <!--picture table-->
+                            <tr>
+                                <td width="150px" height="150px">
+                                    <img  alt="pic1" width="150px" height="150px" id="image1">
+                                </td>
+                                <td width="150px" height="150px">
+                                    <img  alt="pic2" width="150px" height="150px" id="image2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="150px" height="150px">
+                                    <img  alt="pic3" width="150px" height="150px" id="image3">
+                                </td>
+                                <td width="150px" height="150px">
+                                    <img  alt="pic4" width="150px" height="150px" id="image4">
+                                </td>
+                            </tr>
+                        </table>
+                        <table border=".2" align="center" style="font-weight: bold; font size=7; margin: 0px auto;"> <!--letter table-->
+                            <tr>
+                                <td width="20px" height="30px" align="center"><div id="letter1"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter2"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter3"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter4"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter5"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter6"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter7"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter8"></div></td>
+                            </tr>
+                            <tr>
+                                <td width="20px" height="30px" align="center"><div id="letter9"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter10"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter11"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter12"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter13"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter14"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter15"></div></td>
+                                <td width="20px" height="30px" align="center"><div id="letter16"></div></td>
+                            </tr>
+                        </table>
+                    </center>
+                    <div id="guess"></div>
+                    <div id="feedback" class = "blink"></div>
+                    <div id="hint"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

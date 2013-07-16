@@ -1,0 +1,54 @@
+html{
+        height:100%;
+        text-align: center;
+    }
+    body{
+        margin: 0px;
+        padding: 0px;
+        font-family:"arial",sans-serif;
+        font-size:10;
+        background-color:black;
+        height: 100%;
+    }
+    background{
+        color: black;
+    }
+    #main {
+        width: 800px;
+        /*margin: auto;*/
+        background-image:url('http://abstract.cs.washington.edu/~hmslydia/images/black bkgd.png');
+        background-repeat:repeat;
+        height: 100%;
+        padding-top:10px;
+        padding-bottom:10px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+    #banner{
+        font-family:"papyrus",fantasy;
+        font-style: oblique;
+        font-size:40;
+        margin: 5;
+        text-align: center;
+        background-color: #181818; /*#202020,#101010*/
+        height: 70px;
+    }
+    #nav{
+        margin:25;
+        font-family:"calibri",fantasy;
+        font-style: oblique;
+        font-size:20;
+        background-color: #9ACD32;
+        text-align: center;
+        height: 30px;
+    }
+    #content{
+        padding-top:10px;
+        background-color: #006400;
+        height: 100%;
+        margin: 20;
+        text-align: center;
+        font-family:"arial",fantasy;
+        font-style: oblique;
+        font-size:25;
+    }
