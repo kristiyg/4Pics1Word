@@ -42,7 +42,7 @@ app.post('/game.html', function(request, response){
     var message = JSON.parse(request.body["args"])
 	allData.push(message)
     console.log(message)
-    
+    checkpoint()
     response.send("")
 });
 
