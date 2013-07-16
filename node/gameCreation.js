@@ -68,7 +68,7 @@ var game2 = /*infrared*/{
 }
 games.push(game2)
 var game3 = /*droid*/{
-    "answer": ["droid, android"],
+    "answer": ["droid", "android"],
     "imageArray": [imageLocation+"images/word31.jpg", imageLocation+"images/word32.jpg",imageLocation+"images/word33.jpg",imageLocation+"images/word34.jpg"],
     "passed": null,
     "letterArray": ["m","l","e","r","i","s","p","a","n","d","w","h","g","o","c","d"],
