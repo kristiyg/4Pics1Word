@@ -46,6 +46,33 @@ app.post('/game.html', function(request, response){
     response.send("")
 });
 
+/////////////////////////////////
+// Save Database
+/////////////////////////////////
+
+function checkpoint() {
+    writeToFile(allData);
+}
+
+function writeToFile(json){
+    var ret = "data = "+JSON.stringify(json)
+    var d = new Date();
+    var t = d.getTime()
+    fs.writeFile("./saved/data"+t+".js", ret, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log("The file was saved!");
+        }
+    }); 
+}
+
+// force a checkpoint
+app.get('/checkpoint', function(request, response){
+    checkpoint();
+    response.send("checkpointed");
+});
+
 //////////////////////////////////////////
 //// start serving
 //////////////////////////////////////////
