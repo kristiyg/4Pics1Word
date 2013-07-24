@@ -4,7 +4,10 @@ html{
     }
     body{
         margin: 0px;
-        padding: 0px;
+        padding-top:10px;
+        padding-bottom:10px;
+        padding-left:10px;
+        padding-right:10px;
         font-family:"arial",sans-serif;
         font-size:10;
         background-color:black;
@@ -47,8 +50,12 @@ html{
         background-color: #006400;
         height: 100%;
         margin: 20;
+        padding-top:10px;
+        padding-bottom:10px;
+        padding-left:10px;
+        padding-right:10px;
         text-align: center;
-        font-family:"arial",fantasy;
+        font-family:"calibri",fantasy;
         font-style: oblique;
-        font-size:25;
+        font-size:20;
     }

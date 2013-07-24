@@ -2,6 +2,13 @@
     <head>
     <script type= "text/javascript">
     var ipAdd = 0
+    var thisGame = ""
+    function setGame(game){
+        //console.log("global game: ")
+        thisGame = game
+        //console.log(thisGame)
+        
+    }
     //console = {}
     //console["log"] = function(){}
     
@@ -13,12 +20,10 @@
         
             $(document).ready(function(){
                 setUp()
-                displayGame(gameIndex)
                 $("#skip").hide()
                 $.get('http://jsonip.com', function (res) {
                     $('p').html('IP Address is: ' + res.ip);
                     ipAdd = res.ip
-                    console.log(ipAdd)
                     var d = new Date();
                     var n = d.getTime();
                     var message = {
@@ -45,19 +50,19 @@
                     <center>
                         <table border="10"> <!--picture table-->
                             <tr>
-                                <td width="150px" height="150px">
-                                    <img  alt="pic1" width="150px" height="150px" id="image1">
+                                <td width="120px" height="120px">
+                                    <img  alt="pic1" width="120px" height="120px" id="image1">
                                 </td>
-                                <td width="150px" height="150px">
-                                    <img  alt="pic2" width="150px" height="150px" id="image2">
+                                <td width="120px" height="120px">
+                                    <img  alt="pic2" width="120px" height="120px" id="image2">
                                 </td>
                             </tr>
                             <tr>
-                                <td width="150px" height="150px">
-                                    <img  alt="pic3" width="150px" height="150px" id="image3">
+                                <td width="120px" height="120px">
+                                    <img  alt="pic3" width="120px" height="120px" id="image3">
                                 </td>
-                                <td width="150px" height="150px">
-                                    <img  alt="pic4" width="150px" height="150px" id="image4">
+                                <td width="120px" height="120px">
+                                    <img  alt="pic4" width="120px" height="120px" id="image4">
                                 </td>
                             </tr>
                         </table>
@@ -85,8 +90,11 @@
                         </table>
                     </center>
                     <div id="guess"></div>
-                    <div id="feedback" class = "blink"></div>
+                    <div id="feedback"></div>
+                    <div id="feedbackguess"></div>
+                    <div id="points"></div>
                     <div id="hint"></div>
+                    <div id="scramble"></div>
                 </div>
             </div>
         </div>
