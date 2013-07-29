@@ -4,14 +4,11 @@
     var ipAdd = 0
     var thisGame = ""
     function setGame(game){
-        //console.log("global game: ")
         thisGame = game
         //console.log(thisGame)
-        
     }
     //console = {}
     //console["log"] = function(){}
-    
     </script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type = "text/javascript" src="json2.js"></script>
@@ -20,17 +17,20 @@
         
             $(document).ready(function(){
                 setUp()
-                $("#skip").hide()
                 $.get('http://jsonip.com', function (res) {
                     $('p').html('IP Address is: ' + res.ip);
                     ipAdd = res.ip
                     var d = new Date();
                     var n = d.getTime();
                     var message = {
-                        id: ipAdd, 
-                        time: n
+                        "type": "ip",
+                        "id": ipAdd, 
+                        "time": n
                     }
-                    ajax(message, function(result){ })
+                    ajax(message, function(result){
+
+                
+                    })
                 });  
             })
         </script>
