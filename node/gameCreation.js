@@ -10,6 +10,8 @@ function getAndDisplayGame(gameIndex){
         var game = jsonResult["game"]
         setGame(game)
         displayGame()
+        console.log("my ip address is: "+ ipAdd) 
+        sendStartTimeMessage()
     })
 }
 function checkAnswer(){
@@ -22,13 +24,15 @@ function checkAnswer(){
         ajax(message, function(result){
             var jsonResult = JSON.parse(result)
             var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
+            sendEndTimeMessage(textboxAnswer)
             if(isAnswerCorrect){
-                correct()
+                correct(textboxAnswer)
             }
             else{
-                incorrect()
+                incorrect(textboxAnswer)
             }
         })
+        clearPreviousFeedback()
     }
 }
 //SET UP
@@ -130,18 +134,15 @@ function createTextbox(){
         if(checked == false)
             {
                 checkAnswer()
-                //checked = true
             }
-            clearPreviousFeedback()
+             
     })
     textbox.keypress(function(event){
         if( event.which == 13 ) {
             if(checked == false)
             {
                 checkAnswer()
-                //checked = true
             }
-            clearPreviousFeedback()
        }
     })
     div.append(checkButton)
@@ -225,24 +226,24 @@ function takeAwayLetter2(index){
         populateLetterTable()
     })
 }
-function scramble(index){
+/*function scramble(index){
     var div = $('<div>')
     var thisLetterArray = thisGame["letterArray"]
     var scrambleButton = $('<button id="scrambleButton">scramble letters</button>')
     scrambleButton.click(function(){
-        alert("scrambled letters")//scrambleLetters()
+        //scrambleLetters()
     })
     div.append(scrambleButton)
     $("#scramble").append(div)
     return div
-}
+}*/
 //PASSING LEVELS
 function clearPreviousFeedback(){
     $("#feedback").empty()
     $("#feedbackguess").empty()
     $("#points").empty()
 }
-function correct(){
+function correct(textboxAnswer){
     $("#feedback").append(createFeedbackDiv("correct"))
     $("#feedbackguess").append(createFeedbackGuessesDiv())
     $("#skip").hide()
@@ -250,7 +251,7 @@ function correct(){
     $("#points").append(createFeedbackPointsDiv("right"))
     setTimeout(function(){
         if(!isLastGame()){
-            goToNext()
+            goToNext(textboxAnswer)
         }
         else{
             //sendGuessesMessage()
@@ -275,6 +276,7 @@ function incorrect(){
     displayHints()
     //reset UI
     $('#textbox1').val("")
+    sendStartTimeMessage()
 }
 function displayFeedbackForWrong(){
     $("#feedback").append(createFeedbackDiv("wrong"))
@@ -300,7 +302,7 @@ function displayHints(){
         }
         else if(numGuessesMade == 4){
             $("#hint").append(addHint2(gameIndex))
-            scramble(gameIndex)
+            //scramble(gameIndex)
         }
         else if(numGuessesMade == 5){
             handleLastGuessForThisGame()
@@ -324,24 +326,32 @@ function handleLastGuessForThisGame(){
     }
 }
 function isLastGame(){
-    return gameIndex >= 9
+    return gameIndex >= 3
 }
-/*function sendGuessesMessage(){
+function sendEndTimeMessage(textboxAnswer){
     var d = new Date();
     var n = d.getTime();
     var logData = {
-        id: ipAdd, 
-        time: n,
-        level: gameIndex+1,
-        guessTime: 30,
-        //guesses
-        //passed
-        //guessesMade
+        "id": ipAdd,
+        "gameIndex": gameIndex,
+        "guess": textboxAnswer,
+        "endTime": n,
     }
-    var message = {"type": "log", "data":logData}
+    var message = {"type": "logEnd", "data":logData}
     ajax(message, function(result){})
-}*/
-function goToNext(){
+}
+function sendStartTimeMessage(){
+    var d = new Date();
+    var n = d.getTime();
+    var logData = {
+        "id": ipAdd,
+        "gameIndex": gameIndex,
+        "startTime": n,
+    }
+    var message = {"type": "logStart", "data":logData}
+    ajax(message, function(result){})
+}
+function goToNext(textboxAnswer){
     //sendGuessesMessage()
     gameIndex++
     getAndDisplayGame(gameIndex)

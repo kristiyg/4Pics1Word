@@ -12,32 +12,15 @@ app.use(express.bodyParser());
 ////////////////////////
 
 allData = []
+var log = []
+/*
+log.push( {"usernem": "lydia": game: 1, guess: "death star", "starttiem": 12312442, "endtiem":asdf} )
+*/
 //GAME DATA
 var games = []
 var imageLocation = "http://abstract.cs.washington.edu/~hmslydia/"
-var game1 = /*death star*/{
-    basicGame: {
-        "imageArray": [imageLocation+"images/word51.jpg", imageLocation+"images/word52.jpg",imageLocation+"images/word53.jpg",imageLocation+"images/word54.jpg"],
-        "letterArray": ["a","i","e","n","l","s","p","o","m","h","d","b","t","t","r","a"],
-    },
-    "letterRemove": [2, 8],
-    "hint1": "name of the ship darth vader commands",
-    "hint2": "it is spherical like a star",
-    "answer": ["death star","deathstar"],
-}
-games.push(game1)
-var game2 = /*infrared*/{
-    basicGame: {
-        "imageArray": [imageLocation+"images/word101.jpg", imageLocation+"images/word102.jpg",imageLocation+"images/word103.jpg",imageLocation+"images/word104.jpg"],
-        "letterArray": ["r","a","n","p","m","i","f","n","s","t","o","d","e","f","c","r"],
-    },
-    "letterRemove": [10, 11],
-    "hint1": "some cameras have this feature",
-    "hint2": "used for night vision, meterorology, and thermography",
-    "answer": ["infrared"],
-}
-games.push(game2)
-var game3 = /*droid*/{
+
+var game1 = /*droid*/{
     basicGame: {
         "imageArray": [imageLocation+"images/word31.jpg", imageLocation+"images/word32.jpg",imageLocation+"images/word33.jpg",imageLocation+"images/word34.jpg"],
         "letterArray": ["m","l","e","r","i","s","p","a","n","d","w","h","g","o","c","d"],
@@ -47,8 +30,45 @@ var game3 = /*droid*/{
     "hint2": "look at the green guy",    
     "answer": ["droid", "android"],
 }
+games.push(game1)
+var game2 = /*helium*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/word71.jpg", imageLocation+"images/word72.JPG",imageLocation+"images/word73.jpg",imageLocation+"images/word74.jpg"],
+        "letterArray": ["b","u","t","s","h","m","o","l","n","g","e","p","a","i","l","z"],
+    },
+    "letterRemove": [3, 10],
+    "hint1": "your voice can go up really high with this",
+    "hint2": "balloons go up with this",
+    "answer": ["helium"],
+}
+games.push(game2)
+
+var game3 = { /*carbon*/
+    basicGame: {
+        "imageArray": [imageLocation+"images/lydiasGames/img41.jpg", imageLocation+"/images/lydiasGames/img42.jpg",imageLocation+"/images/lydiasGames/img43.jpg",imageLocation+"/images/lydiasGames/img44.jpg"],
+        "letterArray": ["e","i","p","n","l","s","p","o","k","h","d","b","t","o","r","a"],
+    },
+    "letterRemove": [0, 1],
+    "hint1": "it's *elementary*",
+    "hint2": "it makes drinks fizzy",
+    "answer": ["carbon"],
+}
 games.push(game3)
-var game4 = /*chloroplasts*/{
+
+var game4 = /*death star*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/word51.jpg", imageLocation+"images/word52.jpg",imageLocation+"images/word53.jpg",imageLocation+"images/word54.jpg"],
+        "letterArray": ["a","i","e","n","l","s","p","o","m","h","d","b","t","t","r","a"],
+    },
+    "letterRemove": [2, 8],
+    "hint1": "name of the ship darth vader commands",
+    "hint2": "it is spherical like a star",
+    "answer": ["death star","deathstar"],
+}
+games.push(game4)
+
+/* //other games
+var game4 = chloroplasts{
     basicGame: {
         "imageArray": [imageLocation+"images/word61.jpg", imageLocation+"images/word62.jpg",imageLocation+"images/word63.jpg",imageLocation+"images/word64.jpg"],
         "letterArray": ["o","p","a","m","b","h","c","l","s","s","r","o","t","n","t","l"],
@@ -59,7 +79,7 @@ var game4 = /*chloroplasts*/{
     "answer": ["chloroplasts", "chloroplast"],
 }
 games.push(game4)
-var game5 = /*lhospital*/{
+var game5 = /*lhospital{
     basicGame: {
         "imageArray": [imageLocation+"images/word21.jpg", imageLocation+"images/word22.jpg",imageLocation+"images/word23.jpg",imageLocation+"images/word24.jpg"],
         "letterArray": ["i","l","o","m","h","n","a","t","f","g","s","u","p","c","l","a"],
@@ -70,7 +90,7 @@ var game5 = /*lhospital*/{
     "answer": ["lhospital", "l'hospital", "lhopital", "l'hopital"],
 }
 games.push(game5)
-var game6 = /*andromeda*/{
+var game6 = /*andromeda{
     basicGame: {
         "imageArray": [imageLocation+"images/word41.jpg", imageLocation+"images/word42.jpg",imageLocation+"images/word43.jpg",imageLocation+"images/word44.jpg"],
         "letterArray": ["d","a","e","n","l","c","o","s","a","r","t","u","i","c","d","m"],
@@ -81,18 +101,18 @@ var game6 = /*andromeda*/{
     "answer": ["andromeda"],
 }
 games.push(game6)
-var game7 = /*helium*/{
+var game7 = /*infrared{
     basicGame: {
-        "imageArray": [imageLocation+"images/word71.jpg", imageLocation+"images/word72.JPG",imageLocation+"images/word73.jpg",imageLocation+"images/word74.jpg"],
-        "letterArray": ["b","u","t","s","h","m","o","l","n","g","e","p","a","i","l","z"],
+        "imageArray": [imageLocation+"images/word101.jpg", imageLocation+"images/word102.jpg",imageLocation+"images/word103.jpg",imageLocation+"images/word104.jpg"],
+        "letterArray": ["r","a","n","p","m","i","f","n","s","t","o","d","e","f","c","r"],
     },
-    "letterRemove": [3, 10],
-    "hint1": "your voice can go up really high with this",
-    "hint2": "balloons go up with this",
-    "answer": ["helium"],
+    "letterRemove": [10, 11],
+    "hint1": "some cameras have this feature",
+    "hint2": "used for night vision, meterorology, and thermography",
+    "answer": ["infrared"],
 }
 games.push(game7)
-var game8 = /*euler*/{
+var game8 = /*euler{
     basicGame: {
         "imageArray": [imageLocation+"images/word81.jpg", imageLocation+"images/word82.jpg",imageLocation+"images/word83.jpg",imageLocation+"images/word84.jpg"],
         "letterArray": ["l","r","n","o","e","e","m","p","s","f","d","b","c","u","r","t"],
@@ -103,7 +123,7 @@ var game8 = /*euler*/{
     "answer": ["euler"],
 }
 games.push(game8)
-var game9 = /*nanotube*/{
+var game9 = /*nanotube{
     basicGame: {
         "imageArray": [imageLocation+"images/word91.jpg", imageLocation+"images/word92.jpg",imageLocation+"images/word93.jpg",imageLocation+"images/word94.jpg"],
         "letterArray": ["s","o","n","n","e","l","m","g","t","b","h","c","d","y","a","u"],
@@ -114,7 +134,7 @@ var game9 = /*nanotube*/{
     "answer": ["nanotube", "nanotubes", "nano tube", "nano tubes"],
 }
 games.push(game9)
-var game10 = /*magnesium*/{
+var game10 = /*magnesium{
     basicGame: {
         "imageArray": [imageLocation+"images/word11.jpg", imageLocation+"images/word12.jpg",imageLocation+"images/word13.jpg",imageLocation+"images/word14.jpg"],
         "letterArray": ["a","s","m","t","g","i","o","l","m","n","r","c","h","d","e","u"],  
@@ -125,6 +145,8 @@ var game10 = /*magnesium*/{
     "answer": ["magnesium"],
 }
 games.push(game10)
+*/
+
 //USER DATA
 var playerData = {}
 
@@ -132,7 +154,7 @@ function getResults(id){
     var pass = 0
     var notPass = 0
     var skip = 0
-    var score = 10;
+    var score = 4;
     for(var i = 0; i< 10; i++){
         if(playerData[id]["game"+i]["passed"] == "skipped"){
             skip++
@@ -189,7 +211,7 @@ function instantiatePlayer(id){
         "game8": {"passed": null, "guessesMade": []},
         "game9": {"passed": null, "guessesMade": []},
         "totalGuesses": 0,
-        "totalScore": 10,
+        "totalScore": 4,
     }
     return playerData[id]
 }
@@ -219,10 +241,21 @@ app.post('/game.html', function(request, response){
     var messageType = message["type"]
     
     //console.log(message)
-    if(messageType == "log"){
+    if(messageType == "logEnd"){
         var messageData = message["data"]
-        allData.push(messageData)
-        //console.log(messageData)
+        log.push(messageData)
+        console.log(messageData)
+        checkpoint()
+        response.send("")
+    }
+    else if (messageType == "logStart"){
+        var messageData = message["data"]
+        var id = messageData["id"]
+        var gameIndex = messageData["gameIndex"]
+        console.log(playerData)
+        messageData["guessNum"] = playerData[id]["game"+gameIndex]["guessesMade"].length
+        log.push(messageData)
+        console.log(messageData)
         checkpoint()
         response.send("")
     }
