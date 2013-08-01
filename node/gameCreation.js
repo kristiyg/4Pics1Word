@@ -13,21 +13,23 @@ function getAndDisplayGame(gameIndex){
     })
 }
 function checkAnswer(){
-    var textboxValue = $('#textbox1').val()
+    var textboxValue = $('#textbox1').val().trim()
     var textboxAnswer = textboxValue.toLowerCase()
     var id = ipAdd
-    var payload =  {"textboxAnswer": textboxAnswer, "gameIndex": gameIndex, "id": id}
-    var message = {"type": "checkAnswer", "payload": payload}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
-        if(isAnswerCorrect){
-            correct()
-        }
-        else{
-            incorrect()
-        }
-    })
+    if(textboxValue != ""){
+        var payload =  {"textboxAnswer": textboxAnswer, "gameIndex": gameIndex, "id": id}
+        var message = {"type": "checkAnswer", "payload": payload}
+        ajax(message, function(result){
+            var jsonResult = JSON.parse(result)
+            var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
+            if(isAnswerCorrect){
+                correct()
+            }
+            else{
+                incorrect()
+            }
+        })
+    }
 }
 //SET UP
 function setUp(){
@@ -244,6 +246,7 @@ function correct(){
     $("#feedback").append(createFeedbackDiv("correct"))
     $("#feedbackguess").append(createFeedbackGuessesDiv())
     $("#skip").hide()
+    $("#guess").empty()
     $("#points").append(createFeedbackPointsDiv("right"))
     setTimeout(function(){
         if(!isLastGame()){
