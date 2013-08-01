@@ -199,8 +199,8 @@ function instantiatePlayer(id){
 app.get('/game.html', function(request, response){
 	response.sendfile('game.html')
 });
-app.get('/', function(request, response){
-	response.send(allData)
+app.get('/playerData', function(request, response){
+	response.send(playerData)
 });
 app.get('/style.css', function(request, response){
 	response.sendfile('style.css')
@@ -309,6 +309,11 @@ app.post('/game.html', function(request, response){
         playerData[id]["game"+gameIndex]["passed"] = "skipped"
         var passed = playerData[id]["game"+gameIndex]["passed"]
         response.send(JSON.stringify({"passed": passed}))
+    }
+    else if (messageType=="restart"){
+        var id = message["id"]
+        instantiatePlayer(id)
+        response.send("")
     }
 });
 

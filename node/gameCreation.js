@@ -345,15 +345,14 @@ function goToNext(){
     $("#skip").hide()
 }
 //EXTRA FUNCTIONS
-/*function restart(){
-    gameIndex = 0
-    //reset all games to have no state
-    for(var i = 0; i< games.length; i++){
-        var thisGame = games[i]
-        thisGame["passed"] = null
-    }
-    displayGame(gameIndex)
-}*/
+function restart(){
+    var id = ipAdd
+    var message = {"type": "restart", "id": id}
+    ajax(message, function(result){
+        gameIndex = 0
+        getAndDisplayGame(gameIndex)
+    })
+}
 function viewInstructions(){
     alert("To play this game, you will look at the four pictures and try to guess the word/name of what the four pictures are representing. You will not need to use all of the letters given to you. For each level you will get 5 tries and a clue at each guess")
 }
