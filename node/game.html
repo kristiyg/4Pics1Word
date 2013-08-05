@@ -1,7 +1,6 @@
 <html>
     <head>
     <script type= "text/javascript">
-    var ipAdd = 0
     var thisGame = ""
     function setGame(game){
         thisGame = game
@@ -14,25 +13,9 @@
         <script type = "text/javascript" src="json2.js"></script>
         <script type = "text/javascript" src="gameCreation.js"></script>
         <script type= "text/javascript">
-        
+            var id = "a"
             $(document).ready(function(){
-                $.get('http://jsonip.com', function (res) {
-                    $('p').html('IP Address is: ' + res.ip);
-                    ipAdd = res.ip
-                    var d = new Date();
-                    var n = d.getTime();
-                    var message = {
-                        "type": "ip",
-                        "id": ipAdd, 
-                        "time": n
-                    }
-                    ajax(message, function(result){
-                        setUp()
-                
-                    })
-                });  
-                
-                
+                setUp()
             })
         </script>
         <link rel="stylesheet" type="text/css" href="style.css">

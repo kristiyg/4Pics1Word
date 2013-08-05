@@ -11,7 +11,7 @@ app.use(express.bodyParser());
 // Data structure
 ////////////////////////
 
-allData = []
+allData = {}
 var log = []
 /*
 log.push( {"usernem": "lydia": game: 1, guess: "death star", "starttiem": 12312442, "endtiem":asdf} )
@@ -46,9 +46,9 @@ games.push(game2)
 var game3 = { /*carbon*/
     basicGame: {
         "imageArray": [imageLocation+"images/lydiasGames/img41.jpg", imageLocation+"/images/lydiasGames/img42.jpg",imageLocation+"/images/lydiasGames/img43.jpg",imageLocation+"/images/lydiasGames/img44.jpg"],
-        "letterArray": ["e","i","p","n","l","s","p","o","k","h","d","b","t","o","r","a"],
+        "letterArray": ["a","c","p","z","r","l","h","d","e","m","b","s","t","k","o","n"],
     },
-    "letterRemove": [0, 1],
+    "letterRemove": [12, 8],
     "hint1": "it's *elementary*",
     "hint2": "it makes drinks fizzy",
     "answer": ["carbon"],
@@ -219,10 +219,23 @@ function instantiatePlayer(id){
 // Client side includes
 ////////////////////////
 app.get('/game.html', function(request, response){
+    if(request.session.logged){
+        console.log("Welcome back: "+request.session.id)
+    }else{
+        request.session.logged = true
+        console.log("new session: "+request.session.id)
+        var id = request.session.id
+        request.session.counter = 0
+        request.session.currentUserName = id+"-"+request.session.counter
+        instantiatePlayer(request.session.currentUserName)
+    }
 	response.sendfile('game.html')
 });
 app.get('/playerData', function(request, response){
 	response.send(playerData)
+});
+app.get('/log', function(request, response){
+	response.send(log)
 });
 app.get('/style.css', function(request, response){
 	response.sendfile('style.css')
@@ -243,27 +256,28 @@ app.post('/game.html', function(request, response){
     //console.log(message)
     if(messageType == "logEnd"){
         var messageData = message["data"]
+        var gameIndex = messageData["gameIndex"]
+        var id = request.session.currentUserName
+        messageData["guessNum"] = playerData[id]["game"+gameIndex]["guessesMade"].length-1
+        messageData["startTime"] = null
+        messageData["id"] = id
         log.push(messageData)
-        console.log(messageData)
+        //console.log(messageData)
         checkpoint()
         response.send("")
     }
     else if (messageType == "logStart"){
         var messageData = message["data"]
-        var id = messageData["id"]
+        var id = request.session.currentUserName
         var gameIndex = messageData["gameIndex"]
-        console.log(playerData)
+        //console.log(playerData)
         messageData["guessNum"] = playerData[id]["game"+gameIndex]["guessesMade"].length
+        messageData["endTime"] = null
+        messageData["id"] = id
         log.push(messageData)
-        console.log(messageData)
+        //console.log(messageData)
         checkpoint()
         response.send("")
-    }
-    else if (messageType=="ip"){
-        var id = message["id"]
-        var time = message["time"]
-        var rtn = instantiatePlayer(id)
-        response.send(JSON.stringify({"rtn": rtn}))
     }
     else if (messageType=="getGame"){
         var gameIndex = message["gameIndex"]
@@ -274,29 +288,29 @@ app.post('/game.html', function(request, response){
         var payload = message["payload"]
         var textboxAnswer = payload["textboxAnswer"]
         var gameIndex = payload["gameIndex"]
-        var id = payload["id"]
+        var id = request.session.currentUserName
         var rtn = handleGuess(textboxAnswer, gameIndex, id)
         response.send(JSON.stringify({"rtn":rtn}))
     }
     else if (messageType=="results"){
-        var id = message["id"]
+        var id = request.session.currentUserName
         var results = getResults(id)
         response.send(JSON.stringify({"results":results}))
     }
     else if (messageType=="guessesLeft"){
         var gameIndex = message["gameIndex"]
-        var id = message["id"]
+        var id = request.session.currentUserName
         var numGuessesMade = playerData[id]["game"+gameIndex]["guessesMade"].length
         var guessLeft = 5 - numGuessesMade
         response.send(JSON.stringify({"guessLeft":guessLeft}))
     }
     else if (messageType=="currentScore"){
-        var id = message["id"]
+        var id = request.session.currentUserName
         var currentScore = playerData[id]["totalScore"]
         response.send(JSON.stringify({"currentScore":currentScore}))
     }
     else if (messageType=="numGuessesMade"){
-        var id = message["id"]
+        var id = request.session.currentUserName
         var gameIndex = message["gameIndex"]
         var numGuessesMade = playerData[id]["game"+gameIndex]["guessesMade"].length
         response.send(JSON.stringify({"numGuessesMade":numGuessesMade}))
@@ -328,7 +342,7 @@ app.post('/game.html', function(request, response){
         response.send(JSON.stringify({"removeLetterIndex2": removeLetterIndex2}))
     }
     else if (messageType=="getAnswer"){
-        var id = message["id"]
+        var id = request.session.currentUserName
         var gameIndex = message["gameIndex"]
         if(playerData[id]["game"+gameIndex]["passed"] == null){
             playerData[id]["game"+gameIndex]["passed"] = "failed"
@@ -337,15 +351,17 @@ app.post('/game.html', function(request, response){
         response.send(JSON.stringify({"answer":answer}))
     }
     else if (messageType=="skip"){
-        var id = message["id"]
+        var id = request.session.currentUserName
         var gameIndex = message["gameIndex"]
         playerData[id]["game"+gameIndex]["passed"] = "skipped"
         var passed = playerData[id]["game"+gameIndex]["passed"]
         response.send(JSON.stringify({"passed": passed}))
     }
     else if (messageType=="restart"){
-        var id = message["id"]
-        instantiatePlayer(id)
+        request.session.counter++
+        var id = request.session.id
+        request.session.currentUserName = id+"-"+request.session.counter
+        instantiatePlayer(request.session.currentUserName)
         response.send("")
     }
 });
@@ -354,10 +370,12 @@ app.post('/game.html', function(request, response){
 // Save Database
 /////////////////////////////////
 function checkpoint() {
+    allData["log"] = log
+    allData["playerData"] = playerData
     writeToFile(allData);
 }
-function writeToFile(json){
-    var ret = "data = "+JSON.stringify(json)
+function writeToFile(j){
+    var ret = "data = "+JSON.stringify(j)
     var d = new Date();
     var t = d.getTime()
     fs.writeFile("./saved/data"+t+".js", ret, function(err) {

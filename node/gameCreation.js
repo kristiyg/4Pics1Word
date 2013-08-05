@@ -9,17 +9,15 @@ function getAndDisplayGame(gameIndex){
         var jsonResult = JSON.parse(result)
         var game = jsonResult["game"]
         setGame(game)
-        displayGame()
-        console.log("my ip address is: "+ ipAdd) 
+        displayGame() 
         sendStartTimeMessage()
     })
 }
 function checkAnswer(){
     var textboxValue = $('#textbox1').val().trim()
     var textboxAnswer = textboxValue.toLowerCase()
-    var id = ipAdd
     if(textboxValue != ""){
-        var payload =  {"textboxAnswer": textboxAnswer, "gameIndex": gameIndex, "id": id}
+        var payload =  {"textboxAnswer": textboxAnswer, "gameIndex": gameIndex}
         var message = {"type": "checkAnswer", "payload": payload}
         ajax(message, function(result){
             var jsonResult = JSON.parse(result)
@@ -157,8 +155,7 @@ function createFeedbackDiv(feedback){
 }
 function createFeedbackGuessesDiv(){
     var div = $('<div>')
-    var id = ipAdd
-    var message = {"type": "guessesLeft", "gameIndex":gameIndex, "id": id}
+    var message = {"type": "guessesLeft", "gameIndex":gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var guessLeft = jsonResult["guessLeft"]
@@ -168,8 +165,7 @@ function createFeedbackGuessesDiv(){
 }
 function createFeedbackPointsDiv(passed){
     var div = $('<div>')
-    var id = ipAdd
-    var message = {"type": "currentScore", "id": id}
+    var message = {"type": "currentScore"}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var currentScore = jsonResult["currentScore"]
@@ -260,8 +256,9 @@ function correct(textboxAnswer){
     },1500);
 }
 function skip(){
-    var id = ipAdd
-    var message = {"type": "skip", "gameIndex": gameIndex, "id": id}
+    var textboxValue = $('#textbox1').val().trim()
+    sendEndTimeMessage(textboxValue)
+    var message = {"type": "skip", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var passed = jsonResult["passed"]
@@ -284,8 +281,7 @@ function displayFeedbackForWrong(){
     $("#points").append(createFeedbackPointsDiv("wrong"))
 }
 function displayHints(){
-    var id = ipAdd
-    var message = {"type": "numGuessesMade", "gameIndex": gameIndex, "id": id}
+    var message = {"type": "numGuessesMade", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var numGuessesMade = jsonResult["numGuessesMade"]
@@ -310,8 +306,7 @@ function displayHints(){
     })
 }
 function handleLastGuessForThisGame(){
-    var id = ipAdd
-    var message = {"type": "getAnswer", "gameIndex": gameIndex, "id": id}
+    var message = {"type": "getAnswer", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var answer = jsonResult["answer"]
@@ -332,7 +327,6 @@ function sendEndTimeMessage(textboxAnswer){
     var d = new Date();
     var n = d.getTime();
     var logData = {
-        "id": ipAdd,
         "gameIndex": gameIndex,
         "guess": textboxAnswer,
         "endTime": n,
@@ -344,7 +338,7 @@ function sendStartTimeMessage(){
     var d = new Date();
     var n = d.getTime();
     var logData = {
-        "id": ipAdd,
+        
         "gameIndex": gameIndex,
         "startTime": n,
     }
@@ -359,8 +353,7 @@ function goToNext(textboxAnswer){
 }
 //EXTRA FUNCTIONS
 function restart(){
-    var id = ipAdd
-    var message = {"type": "restart", "id": id}
+    var message = {"type": "restart"}
     ajax(message, function(result){
         gameIndex = 0
         getAndDisplayGame(gameIndex)
@@ -370,8 +363,7 @@ function viewInstructions(){
     alert("To play this game, you will look at the four pictures and try to guess the word/name of what the four pictures are representing. You will not need to use all of the letters given to you. For each level you will get 5 tries and a clue at each guess")
 }
 function displayResults(){
-    var id = ipAdd
-    var message = {"type": "results", "id": id}
+    var message = {"type": "results"}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var results = jsonResult["results"]

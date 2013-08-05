@@ -1,0 +1,99 @@
+<html>
+<head>
+<script type = "text/javascript" src="data/test-playerData.js"></script>
+
+<script type = "text/javascript" src="data/test-log.js"></script>
+<script type= "text/javascript">
+    //console.log(playerData)
+    //console.log(logData)
+    
+    //getLogDataLength()
+    //getPlayerDataLength() //num players
+    getLastLevel("173.250.173.251") //get last game played
+    
+    
+    //console.log("\nguess time: 173.250.251, game: 2, guess: 0\n"+getGuessTime("173.250.173.251", 2, 0))
+    //console.log("\nlevel time: 173.250.173.251, game: 0\n"+getLevelTime("173.250.173.251", 0))
+    //console.log("\ngame time: 173.250.173.251\n"+getGameTime("173.250.173.251"))
+    
+    function getLogDataLength(){
+        console.log("")
+        console.log("log data length: ")
+        console.log(logData.length)
+    }
+    function getPlayerDataLength(){
+        console.log("")
+        var count = 0
+        for(var i in playerData){
+            count++
+        }
+        console.log("player data length: "+count)
+        return count
+    }
+    
+    function getGuessTime(id, gameIndex, guessNum){
+        var startTime = 0
+        var endTime = 0
+        for(var i = 0; i < logData.length; i++){
+            if(logData[i]["id"]==id){
+                if(logData[i]["gameIndex"]==gameIndex){
+                    if(logData[i]["guessNum"]==guessNum){
+                        if(logData[i]["startTime"]!= null){
+                            var startTime1 = logData[i]["startTime"] / 1000
+                            startTime = startTime1                            
+                        }
+                        else if(logData[i]["endTime"]!= null){
+                            var endTime1 = logData[i]["endTime"] / 1000
+                            endTime = endTime1                            
+                        }
+                    }
+                }
+            }
+        }
+        var guessTime = endTime - startTime
+        console.log(guessTime)
+        return guessTime
+    }
+    function getLevelTime(id, gameIndex){
+        var startTime = 0
+        var endTime = 0
+        var guessTime = endTime - startTime
+        var count = 0
+        for(var i = 0; i < logData.length; i++){
+            if(logData[i]["id"]==id){
+                if(logData[i]["gameIndex"]==gameIndex){
+                    count++
+                }
+            }
+        }
+        for(var i = 0; i < count/2; i++){
+            
+            guessTime += getGuessTime(id, gameIndex, i)
+        }
+        console.log(guessTime)
+        return guessTime
+    }
+    function getGameTime(id){
+        var guessTime = 0
+        var count = 0
+        for(var i = 0; i < 10; i++){
+            guessTime += getLevelTime(id, i)
+        }
+        console.log(guessTime)
+        return guessTime
+    }
+    
+    //work on
+    function getLastLevel(id){
+        console.log("")       
+        for(var j = 0; j < 2; j++){
+            console.log(playerData["173.250.173.251"])
+        }
+    }
+
+</script>
+</head>
+<body>
+text here
+</body>
+</html>
