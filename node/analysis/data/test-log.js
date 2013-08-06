@@ -1,157 +1,7 @@
 
 var logData = 
 [
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 0,
-    "startTime": 1375482209736,
-    "guessNum": 0,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 0,
-    "guess": "robot",
-    "endTime": 1375482212824,
-    "guessNum": 0,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 0,
-    "startTime": 1375482212839,
-    "guessNum": 1,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 0,
-    "guess": "droid",
-    "endTime": 1375482219187,
-    "guessNum": 1,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 1,
-    "startTime": 1375482220713,
-    "guessNum": 0,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 1,
-    "guess": "atom",
-    "endTime": 1375482223735,
-    "guessNum": 0,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 1,
-    "startTime": 1375482223750,
-    "guessNum": 1,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 1,
-    "guess": "gas",
-    "endTime": 1375482226081,
-    "guessNum": 1,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 1,
-    "startTime": 1375482226094,
-    "guessNum": 2,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 1,
-    "guess": "helium",
-    "endTime": 1375482229320,
-    "guessNum": 2,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "startTime": 1375482230850,
-    "guessNum": 0,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "guess": "burn",
-    "endTime": 1375482234796,
-    "guessNum": 0,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "startTime": 1375482234803,
-    "guessNum": 1,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "guess": "hot",
-    "endTime": 1375482235994,
-    "guessNum": 1,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "startTime": 1375482236001,
-    "guessNum": 2,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "guess": "clear",
-    "endTime": 1375482245536,
-    "guessNum": 2,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "startTime": 1375482245543,
-    "guessNum": 3,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 2,
-    "guess": "carbon",
-    "endTime": 1375482257431,
-    "guessNum": 3,
-    "startTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 3,
-    "startTime": 1375482258954,
-    "guessNum": 0,
-    "endTime": null
-  },
-  {
-    "id": "173.250.173.251",
-    "gameIndex": 3,
-    "guess": "death star",
-    "endTime": 1375482262029,
-    "guessNum": 0,
-    "startTime": null
-  }
-  
+  //mom
   {
     "id": "50.135.229.1",
     "gameIndex": 0,
@@ -314,8 +164,8 @@ var logData =
     "startTime": 1375718642827,
     "guessNum": 0,
     "endTime": null
-  }
-  
+  },
+  //mike
   {
     "id": "173.250.189.36",
     "gameIndex": 0,
@@ -420,6 +270,29 @@ var logData =
     "endTime": 1375725385574,
     "guessNum": 1,
     "startTime": null
-  }
+  },
+  //id changed
+  {
+    "gameIndex":0,
+    "startTime":1375735499371,
+    "guessNum":0,
+    "endTime":null,
+    "id":"7AHl4QF-Ugh6h7YDxitx026S-0"
+  },
+  {
+    "gameIndex":0,
+    "guess":"droid",
+    "endTime":1375735509776,
+    "guessNum":0,
+    "startTime":null,
+    "id":"7AHl4QF-Ugh6h7YDxitx026S-0"
+  },
+  {
+    "gameIndex":1,
+    "startTime":1375735511297,
+    "guessNum":0,
+    "endTime":null,
+    "id":"7AHl4QF-Ugh6h7YDxitx026S-0"
+  },
   
 ]

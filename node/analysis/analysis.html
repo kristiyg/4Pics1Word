@@ -1,20 +1,38 @@
 <html>
 <head>
+<!--
 <script type = "text/javascript" src="data/test-playerData.js"></script>
 
 <script type = "text/javascript" src="data/test-log.js"></script>
+
+
+-->
+<script type = "text/javascript" src="../saved/data-test5.js"></script>
 <script type= "text/javascript">
-    //console.log(playerData)
-    //console.log(logData)
-    
-    //getLogDataLength()
-    //getPlayerDataLength() //num players
-    getLastLevel("173.250.173.251") //get last game played
+    var playerData = data["playerData"]
+    var logData = data["log"]
+    var testId = "qJj3g7opvTdnoKInseldpoNq-0"
     
     
-    //console.log("\nguess time: 173.250.251, game: 2, guess: 0\n"+getGuessTime("173.250.173.251", 2, 0))
-    //console.log("\nlevel time: 173.250.173.251, game: 0\n"+getLevelTime("173.250.173.251", 0))
-    //console.log("\ngame time: 173.250.173.251\n"+getGameTime("173.250.173.251"))
+    console.log(playerData)
+    console.log(logData)
+    
+    getLogDataLength()
+    getPlayerDataLength() //num players
+    
+    console.log("last level:")
+    getLastLevel(testId) //get last game played
+    
+    console.log("failed:")
+    getFailed(testId)
+    
+    getNumGuesses(testId)
+    getNumGuessesGame(testId, 4)
+    
+    
+    console.log("\nguess time: game 9 guess 0 "+getGuessTime(testId, 9, 0))
+    console.log("\nlevel time: game 0 "+getLevelTime(testId, 0))
+    console.log("\ngame time: "+getGameTime(testId))
     
     function getLogDataLength(){
         console.log("")
@@ -27,7 +45,8 @@
         for(var i in playerData){
             count++
         }
-        console.log("player data length: "+count)
+        console.log("player data length:")
+        console.log(count)
         return count
     }
     
@@ -51,7 +70,6 @@
             }
         }
         var guessTime = endTime - startTime
-        console.log(guessTime)
         return guessTime
     }
     function getLevelTime(id, gameIndex){
@@ -70,27 +88,73 @@
             
             guessTime += getGuessTime(id, gameIndex, i)
         }
-        console.log(guessTime)
         return guessTime
     }
     function getGameTime(id){
         var guessTime = 0
-        var count = 0
         for(var i = 0; i < 10; i++){
+            console.log(getLevelTime(id, i))
             guessTime += getLevelTime(id, i)
         }
-        console.log(guessTime)
         return guessTime
     }
-    
-    //work on
     function getLastLevel(id){
-        console.log("")       
-        for(var j = 0; j < 2; j++){
-            console.log(playerData["173.250.173.251"])
+        console.log("")
+        var thisPlayer = playerData[id]
+        for (var i = 0; i < 10; i++) {
+            var thisGame = thisPlayer["game"+i]
+            var thisPassed = thisGame["passed"]
+            if(thisPassed == null){
+                console.log(i-1)
+                return i-1
+            }
+            else if(thisPassed == "passed" && i == 9){
+                console.log("9")
+                return 9
+            }
         }
     }
-
+    function getFailed(id){
+        console.log("")
+        var countFailed = 0
+        var failed = []
+        var thisPlayer = playerData[id]
+        for (var i = 0; i < 10; i++) {
+            var thisGame = thisPlayer["game"+i]
+            var thisPassed = thisGame["passed"]
+            if(thisPassed == "failed"){
+                countFailed++
+                failed.push(i)
+            }
+        }
+        console.log(failed)
+        return countFailed
+    }
+    function getNumGuesses(id){
+        console.log("")
+        var countGuesses = 0
+        var thisPlayer = playerData[id]
+        for (var i = 0; i < 10; i++) {
+            var thisGame = thisPlayer["game"+i]
+            var thisGuessed = thisGame["guessesMade"]
+            var numGuesses = thisGuessed.length
+            countGuesses += numGuesses
+        }
+        console.log(countGuesses)
+        return countGuesses
+    }
+    function getNumGuessesGame(id, gameIndex){
+        console.log("")
+        var countGuesses = 0
+        var thisPlayer = playerData[id]
+        var thisGame = thisPlayer["game"+gameIndex]
+        var thisGuessed = thisGame["guessesMade"]
+        var numGuesses = thisGuessed.length
+        countGuesses += numGuesses
+        console.log(countGuesses)
+        return countGuesses
+    }
+    
 </script>
 </head>
 <body>

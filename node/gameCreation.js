@@ -22,7 +22,8 @@ function checkAnswer(){
         ajax(message, function(result){
             var jsonResult = JSON.parse(result)
             var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
-            sendEndTimeMessage(textboxAnswer)
+            sendEndTimeMessage(textboxAnswer, -1)
+            console.log("sent message answer checked")
             if(isAnswerCorrect){
                 correct(textboxAnswer)
             }
@@ -256,8 +257,6 @@ function correct(textboxAnswer){
     },1500);
 }
 function skip(){
-    var textboxValue = $('#textbox1').val().trim()
-    sendEndTimeMessage(textboxValue)
     var message = {"type": "skip", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
@@ -306,6 +305,8 @@ function displayHints(){
     })
 }
 function handleLastGuessForThisGame(){
+    var textboxValue = $('#textbox1').val().trim()
+    sendEndTimeMessage(textboxValue, 0)
     var message = {"type": "getAnswer", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
@@ -313,7 +314,7 @@ function handleLastGuessForThisGame(){
         alert("sorry, the answer(s) is/are "+ answer)
     })
     if( isLastGame() ){            
-        //sendGuessesMessage()
+        sendEndTimeMessage(textboxValue, 0)
         displayResults()
     }
     else{
@@ -321,15 +322,16 @@ function handleLastGuessForThisGame(){
     }
 }
 function isLastGame(){
-    return gameIndex >= 3
+    return gameIndex >= 9
 }
-function sendEndTimeMessage(textboxAnswer){
+function sendEndTimeMessage(textboxAnswer, x){
     var d = new Date();
     var n = d.getTime();
     var logData = {
         "gameIndex": gameIndex,
         "guess": textboxAnswer,
         "endTime": n,
+        "guessNumAdd": x
     }
     var message = {"type": "logEnd", "data":logData}
     ajax(message, function(result){})
