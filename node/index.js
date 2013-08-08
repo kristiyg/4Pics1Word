@@ -18,7 +18,8 @@ var log = []
 var games = []
 var imageLocation = "http://abstract.cs.washington.edu/~hmslydia/"
 
-var game1 = /*droid*/{
+/*
+var game1 = /*droid{
     basicGame: {
         "imageArray": [imageLocation+"images/word31.jpg", imageLocation+"images/word32.jpg",imageLocation+"images/word33.jpg",imageLocation+"images/word34.jpg"],
         "letterArray": ["m","l","e","r","i","s","p","a","n","d","w","h","g","o","c","d"],
@@ -29,7 +30,7 @@ var game1 = /*droid*/{
     "answer": ["droid", "android"],
 }
 games.push(game1)
-var game2 = /*einstein*/{
+var game2 = /*einstein{
     basicGame: {
         "imageArray": [imageLocation+"images/pic21.jpg", imageLocation+"images/pic22.jpg",imageLocation+"images/pic23.jpg",imageLocation+"images/pic24.jpg"],
         "letterArray": ["t","s","n","n","y","i","i","p","m","f","g","e","e","w","c","r"],
@@ -40,7 +41,7 @@ var game2 = /*einstein*/{
     "answer": ["einstein"],
 }
 games.push(game2)
-var game3 = /*helium*/{
+var game3 = /*helium{
     basicGame: {
         "imageArray": [imageLocation+"images/word71.jpg", imageLocation+"images/word72.JPG",imageLocation+"images/word73.jpg",imageLocation+"images/word74.jpg"],
         "letterArray": ["b","u","t","s","h","m","o","l","n","g","e","p","a","i","l","z"],
@@ -51,7 +52,7 @@ var game3 = /*helium*/{
     "answer": ["helium"],
 }
 games.push(game3)
-var game4 = /*quidditch*/{
+var game4 = /*quidditch{
     basicGame: {
         "imageArray": [imageLocation+"images/pic41.jpg", imageLocation+"images/pic42.jpg",imageLocation+"images/pic43.jpg",imageLocation+"images/pic44.jpg"],
         "letterArray": ["u","i","b","d","d","l","s","p","m","t","n","h","h","c","i","q"],
@@ -62,7 +63,7 @@ var game4 = /*quidditch*/{
     "answer": ["quidditch", "quiditch"],
 }
 games.push(game4)
-var game5 = /*carbon*/{ 
+var game5 = /*carbon{ 
     basicGame: {
         "imageArray": [imageLocation+"images/lydiasGames/img41.jpg", imageLocation+"/images/lydiasGames/img42.jpg",imageLocation+"/images/lydiasGames/img43.jpg",imageLocation+"/images/lydiasGames/img44.jpg"],
         "letterArray": ["a","c","p","z","r","l","h","d","e","m","b","s","t","k","o","n"],
@@ -73,7 +74,7 @@ var game5 = /*carbon*/{
     "answer": ["carbon"],
 }
 games.push(game5)
-var game6 = /*death star*/{
+var game6 = /*deathstar {
     basicGame: {
         "imageArray": [imageLocation+"images/word51.jpg", imageLocation+"images/word52.jpg",imageLocation+"images/word53.jpg",imageLocation+"images/word54.jpg"],
         "letterArray": ["a","i","e","n","l","s","p","o","m","h","d","b","t","t","r","a"],
@@ -84,7 +85,7 @@ var game6 = /*death star*/{
     "answer": ["death star","deathstar"],
 }
 games.push(game6)
-var game7 = /*calculus*/{
+var game7 = /*calculus{
     basicGame: {
         "imageArray": [imageLocation+"images/word81.jpg", imageLocation+"images/pic72.jpg",imageLocation+"images/pic73.jpg",imageLocation+"images/word21.jpg"],
         "letterArray": ["l","c","m","a","t","n","m","p","l","z","e","k","s","u","u","c"],
@@ -95,7 +96,7 @@ var game7 = /*calculus*/{
     "answer": ["calculus"],
 }
 games.push(game7)
-var game8 = /*magnesium*/{
+var game8 = /*magnesium{
     basicGame: {
         "imageArray": [imageLocation+"images/word11.jpg", imageLocation+"images/word12.jpg",imageLocation+"images/word13.jpg",imageLocation+"images/word14.jpg"],
         "letterArray": ["a","s","m","t","g","i","o","l","m","n","r","c","h","d","e","u"],  
@@ -106,7 +107,7 @@ var game8 = /*magnesium*/{
     "answer": ["magnesium"],
 }
 games.push(game8)
-var game9 = /*infrared*/{
+var game9 = /*infrared{
     basicGame: {
         "imageArray": [imageLocation+"images/word101.jpg", imageLocation+"images/word102.jpg",imageLocation+"images/word103.jpg",imageLocation+"images/word104.jpg"],
         "letterArray": ["r","a","n","p","m","i","f","n","s","t","o","d","e","f","c","r"],
@@ -117,7 +118,7 @@ var game9 = /*infrared*/{
     "answer": ["infrared"],
 }
 games.push(game9)
-var game10 = /*andromeda*/{
+var game10 = /*andromeda{
     basicGame: {
         "imageArray": [imageLocation+"images/word41.jpg", imageLocation+"images/word42.jpg",imageLocation+"images/word43.jpg",imageLocation+"images/word44.jpg"],
         "letterArray": ["d","a","e","n","l","c","o","s","a","r","t","u","i","c","d","m"],
@@ -128,6 +129,63 @@ var game10 = /*andromeda*/{
     "answer": ["andromeda"],
 }
 games.push(game10)
+*/
+
+var game1 = /*robot*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/robot1.jpg", imageLocation+"images/robot2.jpg",imageLocation+"images/robot3.jpg",imageLocation+"images/robot4.jpg"],
+        "letterArray": ["o","o","a","p","e","t","b","l","s","r"],
+    },
+    "letterRemove": [7, 4],
+    "hint1": "",
+    "hint2": "",    
+    "answer": ["robot", "robots"],
+}
+games.push(game1)
+var game2 = /*oxygen*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/oxygen1.jpg", imageLocation+"images/oxygen2.jpg",imageLocation+"images/oxygen3.jpg",imageLocation+"images/oxygen4.jpg"],
+        "letterArray": ["n","e","o","m","h","y","r","a","g","x"],
+    },
+    "letterRemove": [6, 7],
+    "hint1": "it is in the air",
+    "hint2": "we breathe it",    
+    "answer": ["oxygen"],
+}
+games.push(game2)
+var game3 = /*jedi*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/jedi1.jpg", imageLocation+"images/jedi2.jpg",imageLocation+"images/jedi3.jpg",imageLocation+"images/jedi4.jpg"],
+        "letterArray": ["d","l","h","j","s","g","a","r","i","e"],
+    },
+    "letterRemove": [7, 6],
+    "hint1": "they use the force",
+    "hint2": "they are the good guys in star wars",    
+    "answer": ["jedi", "jedis"],
+}
+games.push(game3)
+var game4 = /*saturn*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/saturn1.jpg", imageLocation+"images/saturn2.jpg",imageLocation+"images/saturn3.jpg",imageLocation+"images/saturn4.jpg"],
+        "letterArray": ["a","u","r","c","e","p","t","b","s","n"],
+    },
+    "letterRemove": [3, 7],
+    "hint1": "it has many asteroids around it",
+    "hint2": "it's a planet",    
+    "answer": ["saturn"],
+}
+games.push(game4)
+var game5 = /*calculus*/{
+    basicGame: {
+        "imageArray": [imageLocation+"images/word81.jpg", imageLocation+"images/pic72.jpg",imageLocation+"images/pic73.jpg",imageLocation+"images/word21.jpg"],
+        "letterArray": ["l","u","c","c","m","l","t","s","u","a"],
+    },
+    "letterRemove": [4, 6],
+    "hint1": "uses derivatives and integrals",
+    "hint2": "complicated math",
+    "answer": ["calculus"],
+}
+games.push(game5)
 
 
 //USER DATA
@@ -137,7 +195,7 @@ function getResults(id){
     var pass = 0
     var notPass = 0
     var skip = 0
-    var score = 10;
+    var score = 5;
     for(var i = 0; i< 10; i++){
         if(playerData[id]["game"+i]["passed"] == "skipped"){
             skip++
@@ -194,7 +252,7 @@ function instantiatePlayer(id){
         "game8": {"passed": null, "guessesMade": []},
         "game9": {"passed": null, "guessesMade": []},
         "totalGuesses": 0,
-        "totalScore": 10,
+        "totalScore": 5,
     }
     return playerData[id]
 }

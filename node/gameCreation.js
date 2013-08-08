@@ -3,37 +3,6 @@ function ajax(message, callbackFunction){
 }
 var gameIndex = 0
 
-function getAndDisplayGame(gameIndex){
-    var message = {"type": "getGame", "gameIndex":gameIndex}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var game = jsonResult["game"]
-        setGame(game)
-        displayGame() 
-        sendStartTimeMessage()
-    })
-}
-function checkAnswer(){
-    var textboxValue = $('#textbox1').val().trim()
-    var textboxAnswer = textboxValue.toLowerCase()
-    if(textboxValue != ""){
-        var payload =  {"textboxAnswer": textboxAnswer, "gameIndex": gameIndex}
-        var message = {"type": "checkAnswer", "payload": payload}
-        ajax(message, function(result){
-            var jsonResult = JSON.parse(result)
-            var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
-            sendEndTimeMessage(textboxAnswer, -1)
-            console.log("sent message answer checked")
-            if(isAnswerCorrect){
-                correct(textboxAnswer)
-            }
-            else{
-                incorrect(textboxAnswer)
-            }
-        })
-        clearPreviousFeedback()
-    }
-}
 //SET UP
 function setUp(){
     gameIndex = 0
@@ -81,6 +50,16 @@ function createDivider(){
     space0.html(" | ")
     $("#nav").append(space0)
 }
+function getAndDisplayGame(gameIndex){
+    var message = {"type": "getGame", "gameIndex":gameIndex}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var game = jsonResult["game"]
+        setGame(game)
+        displayGame() 
+        sendStartTimeMessage()
+    })
+}
 //displayingGame
 function displayGame(){
     populateImageTable()
@@ -95,7 +74,24 @@ function populateImageTable(){
     $("#image4").attr('src',thisImageArray[3])
 }
 function populateLetterTable(){
-    var thisLetterArray = thisGame["letterArray"]
+    var thisLetterArray = thisGame["letterArray"]    
+    for(var i = 1; i < 11; i++){
+        var letterIndex = i-1
+        var span = $("<span id='letter"+i+"span' class = 'menu-item'>")
+        span.html(thisLetterArray[letterIndex])
+        $("#letter"+i).append(span)
+        
+        var wrap = function(letterIndexPrime, iPrime){
+            $("#letter"+iPrime+"span").click(function(){
+                addLetter(thisLetterArray[letterIndexPrime], iPrime)
+            })
+        }
+        wrap(letterIndex, i)
+    }
+    
+    $(".menu-item").hover(function(){
+        $('.menu-item').css( 'cursor', 'pointer' )});
+    /*
     $("#letter1").html(thisLetterArray[0])
     $("#letter2").html(thisLetterArray[1])
     $("#letter3").html(thisLetterArray[2])
@@ -112,18 +108,75 @@ function populateLetterTable(){
     $("#letter14").html(thisLetterArray[13])
     $("#letter15").html(thisLetterArray[14])
     $("#letter16").html(thisLetterArray[15])
+    */
+}
+function addLetter(letter, letterNum){
+    $("#guess").append(letter)
+    $("#letter"+letterNum).empty()
 }
 function resetUIElts(){
-    $("#guess").empty()
+    clearGuess()
+    $("#check").empty()
     $("#feedback").empty()
     $("#feedbackguess").empty()
     $("#points").empty()
     $("#hint").empty() 
     $("#scramble").empty() 
-    createTextbox()
-    $('#textbox1').focus()
+    createCheckButton()
+    createClearButton()
+    //$('#textbox1').focus()
 }
-function createTextbox(){
+function createCheckButton(){
+    var div = $('<div>')
+    var checked = false
+    var checkButton = $('<button id="checkButton">check</button>')
+    checkButton.click(function(){
+        if(checked == false)
+            {
+                checkAnswer()
+            }
+             
+    })
+    div.append(checkButton)
+    $("#check").append(div)
+}
+function checkAnswer(){
+    var guess = $("#guess").text()
+    console.log(guess)
+    if(guess != ""){
+        var payload =  {"textboxAnswer": guess, "gameIndex": gameIndex}
+        var message = {"type": "checkAnswer", "payload": payload}
+        ajax(message, function(result){
+            var jsonResult = JSON.parse(result)
+            var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
+            sendEndTimeMessage(guess, -1)
+            if(isAnswerCorrect){
+                correct(guess)
+            }
+            else{
+                incorrect(guess)
+            }
+        })
+        clearPreviousFeedback()
+        clearGuess()
+    }
+}
+function createClearButton(){
+    var div = $('<div>')
+    var clearButton = $('<button id="clearButton">clear</button>')
+    clearButton.click(function(){
+        clearGuess()
+    })
+    div.append(clearButton)
+    $("#check").append(div)
+    return div
+}
+function clearGuess(){
+    $("#guess").empty()
+    emptyLetterTable()
+    populateLetterTable()
+}
+/*function createTextbox(){
     var div = $('<div>')
     var checked = false
     var textbox = $('<input type="textbox" id="textbox1" >')
@@ -147,111 +200,19 @@ function createTextbox(){
     div.append(checkButton)
     $("#guess").append(div)
     return div
-}
-//FEEDBACK
-function createFeedbackDiv(feedback){
-    var div = $('<div>')
-    $(div).html(feedback)
-    return div
-}
-function createFeedbackGuessesDiv(){
-    var div = $('<div>')
-    var message = {"type": "guessesLeft", "gameIndex":gameIndex}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var guessLeft = jsonResult["guessLeft"]
-        $(div).html("guesses left:"+ guessLeft)
-    })
-    return div
-}
-function createFeedbackPointsDiv(passed){
-    var div = $('<div>')
-    var message = {"type": "currentScore"}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var currentScore = jsonResult["currentScore"]
-        if(passed == "wrong"){
-            $(div).html("points: -1  <br>  current score: "+ currentScore)
-        }
-        else if(passed == "right"){
-            $(div).html("points: +10  <br>  current score: "+ currentScore)
-        }
-        else{
-            alert("ERROR createFeedbackPointsDiv passed:"+passed)
-        }  
-    })
-    return div
-}
-//HINTS
-function createHintDiv(index){
-    var div = $('<div>')
-    var message = {"type": "hint1", "gameIndex": gameIndex}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var hint1 = jsonResult["hint1"]
-        $(div).html(hint1)
-    })
-    return div
-}
-function addHint2(index){
-    var div = $('<div>')
-    var message = {"type": "hint2", "gameIndex": gameIndex}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var hint2 = jsonResult["hint2"]
-        $(div).html(hint2)
-    })
-    return div
-}
-function takeAwayLetter(index){
-    var message = {"type": "removeLetterIndex1", "gameIndex": gameIndex}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var letterIndexToChange = jsonResult["removeLetterIndex1"]
-        var thisLetterArray = thisGame["letterArray"]
-        thisLetterArray[letterIndexToChange-1] = ""
-        populateLetterTable()
-    })
-}
-function takeAwayLetter2(index){
-    var message = {"type": "removeLetterIndex2", "gameIndex": gameIndex}
-    ajax(message, function(result){
-        var jsonResult = JSON.parse(result)
-        var letterIndexToChange = jsonResult["removeLetterIndex2"]
-        var thisLetterArray = thisGame["letterArray"]
-        thisLetterArray[letterIndexToChange-1] = ""
-        populateLetterTable()
-    })
-}
-/*function scramble(index){
-    var div = $('<div>')
-    var thisLetterArray = thisGame["letterArray"]
-    var scrambleButton = $('<button id="scrambleButton">scramble letters</button>')
-    scrambleButton.click(function(){
-        //scrambleLetters()
-    })
-    div.append(scrambleButton)
-    $("#scramble").append(div)
-    return div
 }*/
 //PASSING LEVELS
-function clearPreviousFeedback(){
-    $("#feedback").empty()
-    $("#feedbackguess").empty()
-    $("#points").empty()
-}
 function correct(textboxAnswer){
-    $("#feedback").append(createFeedbackDiv("correct"))
+    $("#feedback").append(createFeedbackDiv("CORRECT!!! AWESOME"))
     $("#feedbackguess").append(createFeedbackGuessesDiv())
     $("#skip").hide()
-    $("#guess").empty()
-    $("#points").append(createFeedbackPointsDiv("right"))
+    $("#check").empty()
+    $("#points").append(createPointsDiv("right"))
     setTimeout(function(){
         if(!isLastGame()){
             goToNext(textboxAnswer)
         }
         else{
-            //sendGuessesMessage()
             displayResults()
         }
     },1500);
@@ -271,13 +232,14 @@ function incorrect(){
     displayFeedbackForWrong()
     displayHints()
     //reset UI
-    $('#textbox1').val("")
+    //$('#textbox1').val("")
     sendStartTimeMessage()
 }
 function displayFeedbackForWrong(){
-    $("#feedback").append(createFeedbackDiv("wrong"))
+    $("#feedback").append(createFeedbackDiv("try another guess!"))
     $("#feedbackguess").append(createFeedbackGuessesDiv())
-    $("#points").append(createFeedbackPointsDiv("wrong"))
+    $("#points").append(createPointsDiv("wrong"))
+    $("#guess").empty() 
 }
 function displayHints(){
     var message = {"type": "numGuessesMade", "gameIndex": gameIndex}
@@ -305,16 +267,16 @@ function displayHints(){
     })
 }
 function handleLastGuessForThisGame(){
-    var textboxValue = $('#textbox1').val().trim()
-    sendEndTimeMessage(textboxValue, 0)
+    var guess = $("#guess").text()
+    sendEndTimeMessage(guess, 0)
     var message = {"type": "getAnswer", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var answer = jsonResult["answer"]
-        alert("sorry, the answer(s) is/are "+ answer)
+        alert("sorry, the answer is "+ answer)
     })
     if( isLastGame() ){            
-        sendEndTimeMessage(textboxValue, 0)
+        sendEndTimeMessage(guess, 0)
         displayResults()
     }
     else{
@@ -322,8 +284,110 @@ function handleLastGuessForThisGame(){
     }
 }
 function isLastGame(){
-    return gameIndex >= 9
+    return gameIndex >= 4
 }
+function goToNext(textboxAnswer){
+    gameIndex++
+    getAndDisplayGame(gameIndex)
+    $("#skip").hide()
+}
+//FEEDBACK
+function createFeedbackDiv(feedback){
+    var div = $('<div>')
+    $(div).html(feedback)
+    return div
+}
+function createFeedbackGuessesDiv(){
+    var div = $('<div>')
+    var message = {"type": "guessesLeft", "gameIndex":gameIndex}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var guessLeft = jsonResult["guessLeft"]
+        $(div).html("guesses left:"+ guessLeft)
+    })
+    return div
+}
+function createPointsDiv(passed){
+    var div = $('<div>')
+    var message = {"type": "currentScore"}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var currentScore = jsonResult["currentScore"]
+        if(passed == "wrong"){
+            $(div).html("points: -1  <br>  current score: "+ currentScore)
+        }
+        else if(passed == "right"){
+            $(div).html("points: +10  <br>  current score: "+ currentScore)
+        }
+        else{
+            alert("ERROR createPointsDiv passed:"+passed)
+        }  
+    })
+    return div
+}
+function createHintDiv(index){
+    var div = $('<div>')
+    var message = {"type": "hint1", "gameIndex": gameIndex}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var hint1 = jsonResult["hint1"]
+        $(div).html(hint1)
+    })
+    return div
+}
+function addHint2(index){
+    var div = $('<div>')
+    var message = {"type": "hint2", "gameIndex": gameIndex}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var hint2 = jsonResult["hint2"]
+        $(div).html(hint2)
+    })
+    return div
+}
+function takeAwayLetter(index){
+    var message = {"type": "removeLetterIndex1", "gameIndex": gameIndex}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var letterIndexToChange = jsonResult["removeLetterIndex1"]
+        var thisLetterArray = thisGame["letterArray"]
+        thisLetterArray[letterIndexToChange-1] = ""
+        clearGuess()
+    })
+}
+function takeAwayLetter2(index){
+    var message = {"type": "removeLetterIndex2", "gameIndex": gameIndex}
+    ajax(message, function(result){
+        var jsonResult = JSON.parse(result)
+        var letterIndexToChange = jsonResult["removeLetterIndex2"]
+        var thisLetterArray = thisGame["letterArray"]
+        thisLetterArray[letterIndexToChange-1] = ""
+        clearGuess()
+    })
+}
+/*function scramble(index){
+    var div = $('<div>')
+    var thisLetterArray = thisGame["letterArray"]
+    var scrambleButton = $('<button id="scrambleButton">scramble letters</button>')
+    scrambleButton.click(function(){
+        //scrambleLetters()
+    })
+    div.append(scrambleButton)
+    $("#scramble").append(div)
+    return div
+}*/
+//PREP FOR NEXT GUESS
+function clearPreviousFeedback(){
+    $("#feedback").empty()
+    $("#feedbackguess").empty()
+    $("#points").empty()
+}
+function emptyLetterTable(){
+    for(var i = 1; i < 11; i++){
+         $("#letter"+i).empty()
+    }
+}
+//TIME MESSAGES
 function sendEndTimeMessage(textboxAnswer, x){
     var d = new Date();
     var n = d.getTime();
@@ -346,12 +410,6 @@ function sendStartTimeMessage(){
     }
     var message = {"type": "logStart", "data":logData}
     ajax(message, function(result){})
-}
-function goToNext(textboxAnswer){
-    //sendGuessesMessage()
-    gameIndex++
-    getAndDisplayGame(gameIndex)
-    $("#skip").hide()
 }
 //EXTRA FUNCTIONS
 function restart(){

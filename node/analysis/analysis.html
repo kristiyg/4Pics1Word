@@ -7,12 +7,11 @@
 
 
 -->
-<script type = "text/javascript" src="../saved/data-test5.js"></script>
+<script type = "text/javascript" src="../saved/testdata1.js"></script>
 <script type= "text/javascript">
     var playerData = data["playerData"]
     var logData = data["log"]
     var testId = "qJj3g7opvTdnoKInseldpoNq-0"
-    
     
     console.log(playerData)
     console.log(logData)
@@ -28,7 +27,6 @@
     
     getNumGuesses(testId)
     getNumGuessesGame(testId, 4)
-    
     
     console.log("\nguess time: game 9 guess 0 "+getGuessTime(testId, 9, 0))
     console.log("\nlevel time: game 0 "+getLevelTime(testId, 0))
@@ -49,7 +47,6 @@
         console.log(count)
         return count
     }
-    
     function getGuessTime(id, gameIndex, guessNum){
         var startTime = 0
         var endTime = 0
