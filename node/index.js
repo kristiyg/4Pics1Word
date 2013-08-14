@@ -13,7 +13,6 @@ app.use(express.bodyParser());
 
 allData = {}
 var log = []
-
 //GAME DATA
 var games = []
 var imageLocation = "http://abstract.cs.washington.edu/~hmslydia/"
@@ -135,17 +134,19 @@ var game1 = /*robot*/{
     basicGame: {
         "imageArray": [imageLocation+"images/robot1.jpg", imageLocation+"images/robot2.jpg",imageLocation+"images/robot3.jpg",imageLocation+"images/robot4.jpg"],
         "letterArray": ["o","o","a","p","e","t","b","l","s","r"],
+        "answerLength": 5,
     },
     "letterRemove": [7, 4],
     "hint1": "",
     "hint2": "",    
-    "answer": ["robot", "robots"],
+    "answer": ["robot"]
 }
 games.push(game1)
 var game2 = /*oxygen*/{
     basicGame: {
         "imageArray": [imageLocation+"images/oxygen1.jpg", imageLocation+"images/oxygen2.jpg",imageLocation+"images/oxygen3.jpg",imageLocation+"images/oxygen4.jpg"],
         "letterArray": ["n","e","o","m","h","y","r","a","g","x"],
+        "answerLength": 6,
     },
     "letterRemove": [6, 7],
     "hint1": "it is in the air",
@@ -157,17 +158,19 @@ var game3 = /*jedi*/{
     basicGame: {
         "imageArray": [imageLocation+"images/jedi1.jpg", imageLocation+"images/jedi2.jpg",imageLocation+"images/jedi3.jpg",imageLocation+"images/jedi4.jpg"],
         "letterArray": ["d","l","h","j","s","g","a","r","i","e"],
+        "answerLength": 4,
     },
     "letterRemove": [7, 6],
     "hint1": "they use the force",
     "hint2": "they are the good guys in star wars",    
-    "answer": ["jedi", "jedis"],
+    "answer": ["jedi"],
 }
 games.push(game3)
 var game4 = /*saturn*/{
     basicGame: {
         "imageArray": [imageLocation+"images/saturn1.jpg", imageLocation+"images/saturn2.jpg",imageLocation+"images/saturn3.jpg",imageLocation+"images/saturn4.jpg"],
         "letterArray": ["a","u","r","c","e","p","t","b","s","n"],
+        "answerLength": 6,
     },
     "letterRemove": [3, 7],
     "hint1": "it has many asteroids around it",
@@ -179,6 +182,7 @@ var game5 = /*calculus*/{
     basicGame: {
         "imageArray": [imageLocation+"images/word81.jpg", imageLocation+"images/pic72.jpg",imageLocation+"images/pic73.jpg",imageLocation+"images/word21.jpg"],
         "letterArray": ["l","u","c","c","m","l","t","s","u","a"],
+        "answerLength": 8,
     },
     "letterRemove": [4, 6],
     "hint1": "uses derivatives and integrals",
@@ -187,10 +191,8 @@ var game5 = /*calculus*/{
 }
 games.push(game5)
 
-
 //USER DATA
 var playerData = {}
-
 function getResults(id){
     var pass = 0
     var notPass = 0
@@ -322,6 +324,11 @@ app.post('/game.html', function(request, response){
         response.send("")
     }
     else if (messageType=="getGame"){
+        var gameIndex = message["gameIndex"]
+        var game = games[gameIndex]["basicGame"]
+        response.send(JSON.stringify({"game":game}))
+    }
+    else if (messageType=="getAnswerLength"){
         var gameIndex = message["gameIndex"]
         var game = games[gameIndex]["basicGame"]
         response.send(JSON.stringify({"game":game}))

@@ -59,3 +59,8 @@ html{
         font-style: oblique;
         font-size:20;
     }
+    .letterButton{
+        height: 30px;
+        width: 30px;
+        font-size:20;
+    }

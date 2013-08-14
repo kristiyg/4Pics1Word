@@ -2,6 +2,7 @@ function ajax(message, callbackFunction){
     $.post(document.location.href, { args : JSON.stringify(message) }, callbackFunction)
 }
 var gameIndex = 0
+var partialGuess = []
 
 //SET UP
 function setUp(){
@@ -58,6 +59,7 @@ function getAndDisplayGame(gameIndex){
         setGame(game)
         displayGame() 
         sendStartTimeMessage()
+        partialGuess = []
     })
 }
 //displayingGame
@@ -75,22 +77,25 @@ function populateImageTable(){
 }
 function populateLetterTable(){
     var thisLetterArray = thisGame["letterArray"]    
+    var countLettersGuessed = 0
     for(var i = 1; i < 11; i++){
         var letterIndex = i-1
-        var span = $("<span id='letter"+i+"span' class = 'menu-item'>")
-        span.html(thisLetterArray[letterIndex])
-        $("#letter"+i).append(span)
+        var button = $("<button id='letter"+i+"button' class = 'letterButton'>")
+        button.html(thisLetterArray[letterIndex])
+        $("#letter"+i).append(button)
         
         var wrap = function(letterIndexPrime, iPrime){
-            $("#letter"+iPrime+"span").click(function(){
+            $("#letter"+iPrime+"button").click(function(){
                 addLetter(thisLetterArray[letterIndexPrime], iPrime)
+                countLettersGuessed++
             })
         }
         wrap(letterIndex, i)
     }
     
-    $(".menu-item").hover(function(){
-        $('.menu-item').css( 'cursor', 'pointer' )});
+    $(".letterButton").hover(function(){
+        $('.letterButton').css( 'cursor', 'pointer')
+    });
     /*
     $("#letter1").html(thisLetterArray[0])
     $("#letter2").html(thisLetterArray[1])
@@ -111,8 +116,22 @@ function populateLetterTable(){
     */
 }
 function addLetter(letter, letterNum){
-    $("#guess").append(letter)
+    partialGuess.push(letter)
+    var answerLength = thisGame["answerLength"]
+    displayPartialGuess(partialGuess, answerLength)
     $("#letter"+letterNum).empty()
+}
+function displayPartialGuess(partialGuessArray, answerLength){
+    $("#guess").empty()
+    for(var i in partialGuessArray){
+        $("#guess").append(partialGuessArray[i])
+    }
+    var numGuessedLetters = partialGuessArray.length
+    var spacesNeeded = answerLength - numGuessedLetters
+    var spaces = " _"
+    for(var x = 0; x < spacesNeeded; x++){
+        $("#guess").append(spaces)
+    }
 }
 function resetUIElts(){
     clearGuess()
@@ -121,10 +140,19 @@ function resetUIElts(){
     $("#feedbackguess").empty()
     $("#points").empty()
     $("#hint").empty() 
-    $("#scramble").empty() 
+    $("#scramble").empty()
     createCheckButton()
     createClearButton()
     //$('#textbox1').focus()
+}
+function showSpaces(){
+    var thisAnswerLength = thisGame["answerLength"]
+    var spaces = ""
+    for(var i = 0; i < thisAnswerLength; i++){
+        spaces += "_ "
+    }
+    $("#guess").append(spaces)
+    console.log(spaces)
 }
 function createCheckButton(){
     var div = $('<div>')
@@ -142,7 +170,6 @@ function createCheckButton(){
 }
 function checkAnswer(){
     var guess = $("#guess").text()
-    console.log(guess)
     if(guess != ""){
         var payload =  {"textboxAnswer": guess, "gameIndex": gameIndex}
         var message = {"type": "checkAnswer", "payload": payload}
@@ -155,10 +182,10 @@ function checkAnswer(){
             }
             else{
                 incorrect(guess)
+                clearGuess()
             }
         })
         clearPreviousFeedback()
-        clearGuess()
     }
 }
 function createClearButton(){
@@ -173,8 +200,10 @@ function createClearButton(){
 }
 function clearGuess(){
     $("#guess").empty()
+    partialGuess = []
     emptyLetterTable()
     populateLetterTable()
+    showSpaces()
 }
 /*function createTextbox(){
     var div = $('<div>')
@@ -229,6 +258,7 @@ function skip(){
     handleLastGuessForThisGame()
 }
 function incorrect(){
+    
     displayFeedbackForWrong()
     displayHints()
     //reset UI
@@ -248,8 +278,8 @@ function displayHints(){
         var numGuessesMade = jsonResult["numGuessesMade"]
         
         if(numGuessesMade==1){
-        $("#skip").show()
-        $("#hint").append(createHintDiv(gameIndex))
+            $("#skip").show()
+            $("#hint").append(createHintDiv(gameIndex))
         }
         else if(numGuessesMade == 2){
             takeAwayLetter(gameIndex)
@@ -351,7 +381,7 @@ function takeAwayLetter(index){
         var jsonResult = JSON.parse(result)
         var letterIndexToChange = jsonResult["removeLetterIndex1"]
         var thisLetterArray = thisGame["letterArray"]
-        thisLetterArray[letterIndexToChange-1] = ""
+        thisLetterArray[letterIndexToChange] = ""
         clearGuess()
     })
 }
@@ -361,7 +391,7 @@ function takeAwayLetter2(index){
         var jsonResult = JSON.parse(result)
         var letterIndexToChange = jsonResult["removeLetterIndex2"]
         var thisLetterArray = thisGame["letterArray"]
-        thisLetterArray[letterIndexToChange-1] = ""
+        thisLetterArray[letterIndexToChange] = ""
         clearGuess()
     })
 }
@@ -411,7 +441,7 @@ function sendStartTimeMessage(){
     var message = {"type": "logStart", "data":logData}
     ajax(message, function(result){})
 }
-//EXTRA FUNCTIONS
+//EXTRA FUNCTION
 function restart(){
     var message = {"type": "restart"}
     ajax(message, function(result){
@@ -420,7 +450,7 @@ function restart(){
     })
 }
 function viewInstructions(){
-    alert("To play this game, you will look at the four pictures and try to guess the word/name of what the four pictures are representing. You will not need to use all of the letters given to you. For each level you will get 5 tries and a clue at each guess")
+    alert("To play this game, you will look at the four pictures and try to guess the word that the four pictures are representing. You will not need to use all of the letters given to you. For each level you will get 5 tries and a clue at each guess")
 }
 function displayResults(){
     var message = {"type": "results"}
@@ -432,7 +462,7 @@ function displayResults(){
         var skip = results["skipped"]
         var totalGuesses = results["totalGuesses"]
         var score = results["score"]
-        alert("passed: "+pass + "  failed: " + notPass+ "  skipped: " + skip+"   number of guesses: "+totalGuesses+"\nscore: "+score+"\ntry again by clicking on restart")
+        alert("passed: "+pass + "  failed: " + notPass+ "  skipped: " + skip+"   number of guesses: "+totalGuesses+"\nscore: "+score+"/50"+"\ntry again by clicking on restart")
     })
     //restart()
 }
