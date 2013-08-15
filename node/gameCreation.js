@@ -82,12 +82,10 @@ function populateLetterTable(){
         var letterIndex = i-1
         var button = $("<button id='letter"+i+"button' class = 'letterButton'>")
         button.html(thisLetterArray[letterIndex])
-        $("#letter"+i).append(button)
-        
+        $("#letter"+i).append(button)        
         var wrap = function(letterIndexPrime, iPrime){
             $("#letter"+iPrime+"button").click(function(){
                 addLetter(thisLetterArray[letterIndexPrime], iPrime)
-                countLettersGuessed++
             })
         }
         wrap(letterIndex, i)
@@ -116,10 +114,13 @@ function populateLetterTable(){
     */
 }
 function addLetter(letter, letterNum){
-    partialGuess.push(letter)
     var answerLength = thisGame["answerLength"]
-    displayPartialGuess(partialGuess, answerLength)
-    $("#letter"+letterNum).empty()
+    if(partialGuess.length < answerLength){
+        partialGuess.push(letter)
+        console.log(partialGuess)
+        displayPartialGuess(partialGuess, answerLength)
+        $("#letter"+letterNum).empty()
+    }
 }
 function displayPartialGuess(partialGuessArray, answerLength){
     $("#guess").empty()
@@ -129,9 +130,14 @@ function displayPartialGuess(partialGuessArray, answerLength){
     var numGuessedLetters = partialGuessArray.length
     var spacesNeeded = answerLength - numGuessedLetters
     var spaces = " _"
-    for(var x = 0; x < spacesNeeded; x++){
-        $("#guess").append(spaces)
+    if(spacesNeeded == 0){
+        createCheckButton()
     }
+    else{
+        for(var x = 0; x < spacesNeeded; x++){
+            $("#guess").append(spaces)
+        }
+    } 
 }
 function resetUIElts(){
     clearGuess()
@@ -141,7 +147,6 @@ function resetUIElts(){
     $("#points").empty()
     $("#hint").empty() 
     $("#scramble").empty()
-    createCheckButton()
     createClearButton()
     //$('#textbox1').focus()
 }
@@ -152,7 +157,6 @@ function showSpaces(){
         spaces += "_ "
     }
     $("#guess").append(spaces)
-    console.log(spaces)
 }
 function createCheckButton(){
     var div = $('<div>')
@@ -160,23 +164,23 @@ function createCheckButton(){
     var checkButton = $('<button id="checkButton">check</button>')
     checkButton.click(function(){
         if(checked == false)
-            {
-                checkAnswer()
-            }
-             
+        {
+            checkAnswer()
+        }   
     })
     div.append(checkButton)
     $("#check").append(div)
 }
 function checkAnswer(){
     var guess = $("#guess").text()
-    if(guess != ""){
+    if(guess != "" && partialGuess.length == thisGame["answerLength"]){
         var payload =  {"textboxAnswer": guess, "gameIndex": gameIndex}
         var message = {"type": "checkAnswer", "payload": payload}
         ajax(message, function(result){
             var jsonResult = JSON.parse(result)
             var isAnswerCorrect = jsonResult["rtn"]["isAnswerCorrect"]
             sendEndTimeMessage(guess, -1)
+            $("#checkButton").remove()
             if(isAnswerCorrect){
                 correct(guess)
             }
@@ -204,6 +208,7 @@ function clearGuess(){
     emptyLetterTable()
     populateLetterTable()
     showSpaces()
+    $("#checkButton").remove()
 }
 /*function createTextbox(){
     var div = $('<div>')
@@ -381,7 +386,13 @@ function takeAwayLetter(index){
         var jsonResult = JSON.parse(result)
         var letterIndexToChange = jsonResult["removeLetterIndex1"]
         var thisLetterArray = thisGame["letterArray"]
-        thisLetterArray[letterIndexToChange] = ""
+        var indexPlusOne = letterIndexToChange+1
+        console.log(indexPlusOne)
+        //thisLetterArray[letterIndexToChange] = ""
+        console.log($("#letter"+letterIndexToChange+"button"))
+        console.log( $("#letter"+letterIndexToChange))
+        $("#letter"+letterIndexToChange).empty()
+        //$("#letter"+(letterIndexToChange+1)+"button").remove()
         clearGuess()
     })
 }
@@ -392,6 +403,8 @@ function takeAwayLetter2(index){
         var letterIndexToChange = jsonResult["removeLetterIndex2"]
         var thisLetterArray = thisGame["letterArray"]
         thisLetterArray[letterIndexToChange] = ""
+        $("#letter"+letterIndexToChange).empty()
+        //$("#'letter"+letterIndexToChange+"button'").remove()
         clearGuess()
     })
 }

@@ -248,11 +248,6 @@ function instantiatePlayer(id){
         "game2": {"passed": null, "guessesMade": []},
         "game3": {"passed": null, "guessesMade": []},
         "game4": {"passed": null, "guessesMade": []},
-        "game5": {"passed": null, "guessesMade": []},
-        "game6": {"passed": null, "guessesMade": []},
-        "game7": {"passed": null, "guessesMade": []},
-        "game8": {"passed": null, "guessesMade": []},
-        "game9": {"passed": null, "guessesMade": []},
         "totalGuesses": 0,
         "totalScore": 5,
     }
