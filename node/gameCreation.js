@@ -79,45 +79,28 @@ function populateLetterTable(){
     var thisLetterArray = thisGame["letterArray"]    
     var countLettersGuessed = 0
     for(var i = 1; i < 11; i++){
-        var letterIndex = i-1
-        var button = $("<button id='letter"+i+"button' class = 'letterButton'>")
-        button.html(thisLetterArray[letterIndex])
-        $("#letter"+i).append(button)        
-        var wrap = function(letterIndexPrime, iPrime){
-            $("#letter"+iPrime+"button").click(function(){
-                addLetter(thisLetterArray[letterIndexPrime], iPrime)
-            })
+        if(thisLetterArray[i-1] != ""){
+            var letterIndex = i-1
+            var button = $("<button id='letter"+i+"button' class = 'letterButton'>")
+            button.html(thisLetterArray[letterIndex])
+            $("#letter"+i).append(button)        
+            var wrap = function(letterIndexPrime, iPrime){
+                $("#letter"+iPrime+"button").click(function(){
+                    addLetter(thisLetterArray[letterIndexPrime], iPrime)
+                })
+            }
+            wrap(letterIndex, i)
         }
-        wrap(letterIndex, i)
     }
     
     $(".letterButton").hover(function(){
         $('.letterButton').css( 'cursor', 'pointer')
     });
-    /*
-    $("#letter1").html(thisLetterArray[0])
-    $("#letter2").html(thisLetterArray[1])
-    $("#letter3").html(thisLetterArray[2])
-    $("#letter4").html(thisLetterArray[3])
-    $("#letter5").html(thisLetterArray[4])
-    $("#letter6").html(thisLetterArray[5])
-    $("#letter7").html(thisLetterArray[6])
-    $("#letter8").html(thisLetterArray[7])
-    $("#letter9").html(thisLetterArray[8])
-    $("#letter10").html(thisLetterArray[9])
-    $("#letter11").html(thisLetterArray[10])
-    $("#letter12").html(thisLetterArray[11])
-    $("#letter13").html(thisLetterArray[12])
-    $("#letter14").html(thisLetterArray[13])
-    $("#letter15").html(thisLetterArray[14])
-    $("#letter16").html(thisLetterArray[15])
-    */
 }
 function addLetter(letter, letterNum){
     var answerLength = thisGame["answerLength"]
     if(partialGuess.length < answerLength){
         partialGuess.push(letter)
-        console.log(partialGuess)
         displayPartialGuess(partialGuess, answerLength)
         $("#letter"+letterNum).empty()
     }
@@ -161,7 +144,7 @@ function showSpaces(){
 function createCheckButton(){
     var div = $('<div>')
     var checked = false
-    var checkButton = $('<button id="checkButton">check</button>')
+    var checkButton = $('<button id="checkButton" class="checkClear">check</button>')
     checkButton.click(function(){
         if(checked == false)
         {
@@ -194,7 +177,7 @@ function checkAnswer(){
 }
 function createClearButton(){
     var div = $('<div>')
-    var clearButton = $('<button id="clearButton">clear</button>')
+    var clearButton = $('<button id="clearButton" class="checkClear">clear</button>')
     clearButton.click(function(){
         clearGuess()
     })
@@ -263,7 +246,6 @@ function skip(){
     handleLastGuessForThisGame()
 }
 function incorrect(){
-    
     displayFeedbackForWrong()
     displayHints()
     //reset UI
@@ -282,7 +264,7 @@ function displayHints(){
         var jsonResult = JSON.parse(result)
         var numGuessesMade = jsonResult["numGuessesMade"]
         
-        if(numGuessesMade==1){
+        if(numGuessesMade == 1){
             $("#skip").show()
             $("#hint").append(createHintDiv(gameIndex))
         }
@@ -294,6 +276,7 @@ function displayHints(){
         }
         else if(numGuessesMade == 4){
             $("#hint").append(addHint2(gameIndex))
+            takeAwayLetter2(gameIndex)
             //scramble(gameIndex)
         }
         else if(numGuessesMade == 5){
@@ -385,27 +368,32 @@ function takeAwayLetter(index){
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
         var letterIndexToChange = jsonResult["removeLetterIndex1"]
-        var thisLetterArray = thisGame["letterArray"]
         var indexPlusOne = letterIndexToChange+1
-        console.log(indexPlusOne)
-        //thisLetterArray[letterIndexToChange] = ""
-        console.log($("#letter"+letterIndexToChange+"button"))
-        console.log( $("#letter"+letterIndexToChange))
-        $("#letter"+letterIndexToChange).empty()
-        //$("#letter"+(letterIndexToChange+1)+"button").remove()
+        var thisLetterArray = thisGame["letterArray"]
+        thisLetterArray[letterIndexToChange] = ""
         clearGuess()
+        $("#letter"+indexPlusOne).empty()
+        console.log("1:"+thisLetterArray)
+        console.log(indexPlusOne)
     })
 }
 function takeAwayLetter2(index){
     var message = {"type": "removeLetterIndex2", "gameIndex": gameIndex}
     ajax(message, function(result){
         var jsonResult = JSON.parse(result)
-        var letterIndexToChange = jsonResult["removeLetterIndex2"]
+        var letterIndexToChange2 = jsonResult["removeLetterIndex2"]
+        var indexPlusOne2 = letterIndexToChange2+1
+        var letterIndexToChange1 = jsonResult["removeLetterIndex1"]
+        var indexPlusOne1 = letterIndexToChange1+1
         var thisLetterArray = thisGame["letterArray"]
-        thisLetterArray[letterIndexToChange] = ""
-        $("#letter"+letterIndexToChange).empty()
-        //$("#'letter"+letterIndexToChange+"button'").remove()
+        thisLetterArray[letterIndexToChange2] = ""
         clearGuess()
+        $("#letter"+indexPlusOne2).empty()
+        $("#letter"+indexPlusOne1).empty()
+        
+        console.log("2:"+thisLetterArray)
+        console.log(indexPlusOne2)
+        console.log(indexPlusOne1)
     })
 }
 /*function scramble(index){
@@ -447,7 +435,6 @@ function sendStartTimeMessage(){
     var d = new Date();
     var n = d.getTime();
     var logData = {
-        
         "gameIndex": gameIndex,
         "startTime": n,
     }

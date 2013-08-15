@@ -1,0 +1,594 @@
+data = {
+    "log":
+    [
+      {
+        "gameIndex": 0,
+        "startTime": 1376021222982,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 0,
+        "guess": "robot",
+        "endTime": 1376021247180,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 1,
+        "startTime": 1376021248716,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 1,
+        "guess": "game",
+        "endTime": 1376021357006,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 1,
+        "startTime": 1376021357022,
+        "guessNum": 1,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 1,
+        "guess": "oxygen",
+        "endTime": 1376021386867,
+        "guessNumAdd": -1,
+        "guessNum": 1,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 2,
+        "startTime": 1376021388401,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 2,
+        "guess": "lighs",
+        "endTime": 1376021447643,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 2,
+        "startTime": 1376021447656,
+        "guessNum": 1,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 2,
+        "guess": "jedi",
+        "endTime": 1376021507735,
+        "guessNumAdd": -1,
+        "guessNum": 1,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 3,
+        "startTime": 1376021509274,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 3,
+        "guess": "saturn",
+        "endTime": 1376021530646,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376021532177,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "sum",
+        "endTime": 1376021608188,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376021608196,
+        "guessNum": 1,
+        "endTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "calculus",
+        "endTime": 1376021638407,
+        "guessNumAdd": -1,
+        "guessNum": 1,
+        "startTime": null,
+        "id": "-hMTGqVIM11peqT6h5EHYN7b-0"
+      }
+    ]
+    [
+      {
+        "gameIndex": 0,
+        "startTime": 1376022293412,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 0,
+        "guess": "robot",
+        "endTime": 1376022305528,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 1,
+        "startTime": 1376022307070,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 1,
+        "guess": "oxygen",
+        "endTime": 1376022327921,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 2,
+        "startTime": 1376022329461,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 2,
+        "guess": "lighd",
+        "endTime": 1376022381517,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 2,
+        "startTime": 1376022381526,
+        "guessNum": 1,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 2,
+        "guess": "jedi",
+        "endTime": 1376022404181,
+        "guessNumAdd": -1,
+        "guessNum": 1,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "startTime": 1376022405713,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "guess": "turb",
+        "endTime": 1376022429397,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "startTime": 1376022429410,
+        "guessNum": 1,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "guess": "uran",
+        "endTime": 1376022516805,
+        "guessNumAdd": -1,
+        "guessNum": 1,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "startTime": 1376022516814,
+        "guessNum": 2,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "guess": "satu",
+        "endTime": 1376022564815,
+        "guessNumAdd": -1,
+        "guessNum": 2,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "startTime": 1376022564825,
+        "guessNum": 3,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 3,
+        "guess": "",
+        "endTime": 1376022579412,
+        "guessNumAdd": 0,
+        "guessNum": 3,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376022583012,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "sl",
+        "endTime": 1376022603079,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376022603087,
+        "guessNum": 1,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "mat",
+        "endTime": 1376022626910,
+        "guessNumAdd": -1,
+        "guessNum": 1,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376022626924,
+        "guessNum": 2,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "mau",
+        "endTime": 1376022655128,
+        "guessNumAdd": -1,
+        "guessNum": 2,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376022655136,
+        "guessNum": 3,
+        "endTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "",
+        "endTime": 1376022666375,
+        "guessNumAdd": 0,
+        "guessNum": 3,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "",
+        "endTime": 1376022666377,
+        "guessNumAdd": 0,
+        "guessNum": 3,
+        "startTime": null,
+        "id": "VEgE0fSw3e0NE_28aQG2go8A-0"
+      }
+    ],
+        [
+      {
+        "gameIndex": 0,
+        "startTime": 1376025345933,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 0,
+        "guess": "robot",
+        "endTime": 1376025366623,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 1,
+        "startTime": 1376025368164,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 1,
+        "guess": "oxygen",
+        "endTime": 1376025407433,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 2,
+        "startTime": 1376025408961,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 2,
+        "guess": "jedi",
+        "endTime": 1376025475326,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 3,
+        "startTime": 1376025476866,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 3,
+        "guess": "saturn",
+        "endTime": 1376025502036,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 4,
+        "startTime": 1376025503567,
+        "guessNum": 0,
+        "endTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      },
+      {
+        "gameIndex": 4,
+        "guess": "calculus",
+        "endTime": 1376025550314,
+        "guessNumAdd": -1,
+        "guessNum": 0,
+        "startTime": null,
+        "id": "KkI9wYJQcr3nQLFE7dDm2zz7-0"
+      }
+    ],
+    "playerData":
+    {
+        "-hMTGqVIM11peqT6h5EHYN7b-0": {
+            "game0": {
+              "passed": "passed",
+              "guessesMade": [
+                "robot"
+              ]
+            },
+            "game1": {
+              "passed": "passed",
+              "guessesMade": [
+                "game",
+                "oxygen"
+              ]
+            },
+            "game2": {
+              "passed": "passed",
+              "guessesMade": [
+                "lighs",
+                "jedi"
+              ]
+            },
+            "game3": {
+              "passed": "passed",
+              "guessesMade": [
+                "saturn"
+              ]
+            },
+            "game4": {
+              "passed": "passed",
+              "guessesMade": [
+                "sum",
+                "calculus"
+              ]
+            },
+            "game5": {
+              "passed": null,
+              "guessesMade": []
+            },
+            "game6": {
+              "passed": null,
+              "guessesMade": []
+            },
+            "game7": {
+              "passed": null,
+              "guessesMade": []
+            },
+            "game8": {
+              "passed": null,
+              "guessesMade": []
+            },
+            "game9": {
+              "passed": null,
+              "guessesMade": []
+            },
+            "totalGuesses": 8,
+            "totalScore": 47
+        },
+        "VEgE0fSw3e0NE_28aQG2go8A-0": {
+    "game0": {
+      "passed": "passed",
+      "guessesMade": [
+        "robot"
+      ]
+    },
+    "game1": {
+      "passed": "passed",
+      "guessesMade": [
+        "oxygen"
+      ]
+    },
+    "game2": {
+      "passed": "passed",
+      "guessesMade": [
+        "lighd",
+        "jedi"
+      ]
+    },
+    "game3": {
+      "passed": "skipped",
+      "guessesMade": [
+        "turb",
+        "uran",
+        "satu"
+      ]
+    },
+    "game4": {
+      "passed": "skipped",
+      "guessesMade": [
+        "sl",
+        "mat",
+        "mau"
+      ]
+    },
+    "game5": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game6": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game7": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game8": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game9": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "totalGuesses": 10,
+    "totalScore": 25
+  }
+  
+{
+  "KkI9wYJQcr3nQLFE7dDm2zz7-0": {
+    "game0": {
+      "passed": "passed",
+      "guessesMade": [
+        "robot"
+      ]
+    },
+    "game1": {
+      "passed": "passed",
+      "guessesMade": [
+        "oxygen"
+      ]
+    },
+    "game2": {
+      "passed": "passed",
+      "guessesMade": [
+        "jedi"
+      ]
+    },
+    "game3": {
+      "passed": "passed",
+      "guessesMade": [
+        "saturn"
+      ]
+    },
+    "game4": {
+      "passed": "passed",
+      "guessesMade": [
+        "calculus"
+      ]
+    },
+    "game5": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game6": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game7": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game8": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "game9": {
+      "passed": null,
+      "guessesMade": []
+    },
+    "totalGuesses": 5,
+    "totalScore": 50
+  }
+}
+    }
+}

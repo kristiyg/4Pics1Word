@@ -2,21 +2,17 @@
 var express = require('express');
 fs = require('fs');
 app = express();
-
 app.use(express.cookieParser()); 
 app.use(express.session({ secret: "keyboard cat" }))
 app.use(express.bodyParser());
-
 ////////////////////////
 // Data structure
 ////////////////////////
-
 allData = {}
 var log = []
 //GAME DATA
 var games = []
 var imageLocation = "http://abstract.cs.washington.edu/~hmslydia/"
-
 /*
 var game1 = /*droid{
     basicGame: {
@@ -137,8 +133,8 @@ var game1 = /*robot*/{
         "answerLength": 5,
     },
     "letterRemove": [7, 4],
-    "hint1": "",
-    "hint2": "",    
+    "hint1": "common toys",
+    "hint2": "machines controlled by code",    
     "answer": ["robot"]
 }
 games.push(game1)
@@ -190,7 +186,6 @@ var game5 = /*calculus*/{
     "answer": ["calculus"],
 }
 games.push(game5)
-
 //USER DATA
 var playerData = {}
 function getResults(id){
@@ -198,7 +193,8 @@ function getResults(id){
     var notPass = 0
     var skip = 0
     var score = 5;
-    for(var i = 0; i< 10; i++){
+    console.log(id)
+    for(var i = 0; i< 5; i++){
         if(playerData[id]["game"+i]["passed"] == "skipped"){
             skip++
         }
@@ -214,7 +210,6 @@ function getResults(id){
     return {"passed": pass, "failed": notPass, "skipped": skip, "totalGuesses": playerData[id]["totalGuesses"], "score": score} 
 }
 function handleGuess(guess, gameIndex, id){
-//console.log(playerData[id])
     var thisGame = games[gameIndex]
     var numGuessesMade = playerData[id]["game"+gameIndex]["guessesMade"].length
     playerData[id]["game"+gameIndex]["guessesMade"].push(guess)
@@ -232,7 +227,6 @@ function handleGuess(guess, gameIndex, id){
 function isAnswerCorrect(guess, thisGame){
     var correctAnswer = false
     var allCorrectAnswers = thisGame["answer"]
-    //console.log(guess + "answers:"+ allCorrectAnswers)
     for(var i = 0; i < allCorrectAnswers.length; i++){
         var thisCorrectAnswer = allCorrectAnswers[i]
         if(guess == thisCorrectAnswer){
@@ -290,8 +284,6 @@ app.get('/json2.js', function(request, response){
 app.post('/game.html', function(request, response){
     var message = JSON.parse(request.body["args"])
     var messageType = message["type"]
-    
-    //console.log(message)
     if(messageType == "logEnd"){
         var messageData = message["data"]
         var gameIndex = messageData["gameIndex"]
@@ -301,7 +293,6 @@ app.post('/game.html', function(request, response){
         messageData["startTime"] = null
         messageData["id"] = id
         log.push(messageData)
-        //console.log(messageData)
         checkpoint()
         response.send("")
     }
@@ -309,12 +300,10 @@ app.post('/game.html', function(request, response){
         var messageData = message["data"]
         var id = request.session.currentUserName
         var gameIndex = messageData["gameIndex"]
-        //console.log(playerData)
         messageData["guessNum"] = playerData[id]["game"+gameIndex]["guessesMade"].length
         messageData["endTime"] = null
         messageData["id"] = id
         log.push(messageData)
-        //console.log(messageData)
         checkpoint()
         response.send("")
     }
@@ -382,8 +371,9 @@ app.post('/game.html', function(request, response){
         var gameIndex = message["gameIndex"]
         var thisGame = games[gameIndex]
         var game = thisGame
+        var removeLetterIndex1 = game["letterRemove"][0]
         var removeLetterIndex2 = game["letterRemove"][1]
-        response.send(JSON.stringify({"removeLetterIndex2": removeLetterIndex2}))
+        response.send(JSON.stringify({"removeLetterIndex2": removeLetterIndex2, "removeLetterIndex1": removeLetterIndex1}))
     }
     else if (messageType=="getAnswer"){
         var id = request.session.currentUserName
@@ -409,7 +399,6 @@ app.post('/game.html', function(request, response){
         response.send("")
     }
 });
-
 /////////////////////////////////
 // Save Database
 /////////////////////////////////
@@ -435,11 +424,9 @@ app.get('/checkpoint', function(request, response){
     checkpoint();
     response.send("checkpointed");
 });
-
 //////////////////////////////////////////
 //// start serving
 //////////////////////////////////////////
-
 app.listen(3000);
 console.log('Listening on port 3000');
 //checkpoint.restoreData(1)
